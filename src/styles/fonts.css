@@ -1,0 +1,215 @@
+/* Standard Fonts */
+@font-face {
+  font-family: "Helvetica Neue LT Std";
+  font-style: normal;
+  font-weight: 100;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-UltLt.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std";
+  font-style: italic;
+  font-weight: 100;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-UltLtIt.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std";
+  font-style: normal;
+  font-weight: 300;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-Lt.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std";
+  font-style: italic;
+  font-weight: 300;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-LtIt.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std";
+  font-style: normal;
+  font-weight: normal;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-Roman.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std";
+  font-style: italic;
+  font-weight: normal;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-It.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-Md.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std";
+  font-style: italic;
+  font-weight: 500;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-MdIt.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std";
+  font-style: normal;
+  font-weight: bold;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-Bd.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std";
+  font-style: italic;
+  font-weight: bold;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-BdIt.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std";
+  font-style: normal;
+  font-weight: 900;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-Hv.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std";
+  font-style: italic;
+  font-weight: 900;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-HvIt.otf")
+    format("opentype");
+}
+
+/* Condensed Fonts */
+@font-face {
+  font-family: "Helvetica Neue LT Std Cn O";
+  font-style: normal;
+  font-weight: 100;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-UltLtCnO.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std Cn";
+  font-style: normal;
+  font-weight: 100;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-UltLtCn.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std Cn O";
+  font-style: normal;
+  font-weight: 300;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-LtCnO.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std Cn";
+  font-style: normal;
+  font-weight: 300;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-LtCn.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std Cn O";
+  font-style: normal;
+  font-weight: normal;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-CnO.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std Cn";
+  font-style: normal;
+  font-weight: normal;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-Cn.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std Cn O";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-MdCnO.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std Cn";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-MdCn.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std Cn O";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-BdCnO.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std Cn";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-BdCn.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std Cn O";
+  font-style: normal;
+  font-weight: 900;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-HvCnO.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std Cn";
+  font-style: normal;
+  font-weight: 900;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-HvCn.otf")
+    format("opentype");
+}
+
+/* Extended Fonts  */
+@font-face {
+  font-family: "Helvetica Neue LT Std Ex";
+  font-style: normal;
+  font-weight: 100;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-UltLtEx.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std Ex";
+  font-style: normal;
+  font-weight: 300;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-LtEx.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std Ex";
+  font-style: normal;
+  font-weight: normal;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-Ex.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std Ex";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-MdEx.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std Ex";
+  font-style: normal;
+  font-weight: bold;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-BdEx.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT Std Ex";
+  font-style: normal;
+  font-weight: 900;
+  src: url("/assets/fonts/HelveticaNeueLTStd/Linotype - HelveticaNeueLTStd-HvEx.otf")
+    format("opentype");
+}
