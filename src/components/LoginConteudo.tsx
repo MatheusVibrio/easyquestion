@@ -1,8 +1,8 @@
-import Hero from "./Hero";
+import LoginForm from "./LoginForm";
 
-export default function Intro() {
+export default function LoginConteudo() {
   return (
-      <Hero
+      <LoginForm
         title="Login"
         description="Use suas credenciais para acessar sua conta."/>
   );
