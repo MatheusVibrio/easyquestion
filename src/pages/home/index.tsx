@@ -1,4 +1,4 @@
-import Intro from "../../components/LoginConteudo";
+import Intro from "../../components/Intro";
 
 export default function Home() {
   return (
