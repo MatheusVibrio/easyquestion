@@ -8,7 +8,7 @@ export default function Criacao() {
       <div className="absolute w-full bg-blue-500 dark:hidden min-h-75"></div>
       <SideBar />
       <NavBar />
-      <div className="flex items-center justify-between w-full px-4 py-1 mx-auto ml-[17rem] flex-wrap-inherit">
+      <div className="flex items-center justify-between px-4 py-1 mx-auto ml-[17rem] flex-wrap-inherit">
           <ol className="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
             <li
               className="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white"

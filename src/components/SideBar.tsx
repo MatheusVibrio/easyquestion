@@ -71,7 +71,7 @@ export default function SideBar() {
                 <span className="text-gray-600">
                   <FiFileText />
                 </span>
-                <span>Prova Online</span>
+                <span>Prova</span>
               </a>
             </li>
             <li>
