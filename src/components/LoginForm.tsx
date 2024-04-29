@@ -17,7 +17,7 @@ export default function LoginForm(props: LoginForm) {
             </h2>
             <p className="mt-2">Utilize suas credenciais para acessar sua conta.</p>
           </div>
-          <form className="mt-8 space-y-6">
+          <form className="mt-8 space-y-6" action="/">
             <div>
               <label htmlFor="email" className="sr-only">
                 E-mail
@@ -55,8 +55,6 @@ export default function LoginForm(props: LoginForm) {
               </button>
             </div>
             <div className="flex items-center justify-center flex-col gap-6">
-              <p className="text-xs text-teal-900">OU</p>
-              <p>Não tem uma conta? <span className="text-teal-900 font-bold">Cadastrar-se</span></p>
               <img
                 src="/public/assets/images/logoUnifae.png"
                 alt="Logo Unifae"

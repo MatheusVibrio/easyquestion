@@ -13,6 +13,7 @@ import Criacao from './pages/criacao'
 import Processamento from './pages/processamento'
 import Configuracoes from './pages/configuracoes'
 import ProvaOnline from './pages/prova-online'
+import Correcao from './pages/correcao'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/correcao" element={<Correcao />} />
         <Route path="/criacao" element={<Criacao />} />
         <Route path="/processamento" element={<Processamento />} />
         <Route path="/prova-online" element={<ProvaOnline />} />
