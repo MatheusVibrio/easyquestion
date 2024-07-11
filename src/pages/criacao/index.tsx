@@ -1,24 +1,36 @@
-
-import NavBar from "../../components/NavBar";
-import SideBar from "../../components/SideBar";
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+import CabecalhoCriacao from '../../components/CabecalhoCriacao';
+import NavBar from '../../components/NavBar';
+import SideBar from '../../components/SideBar';
 
 export default function Criacao() {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const correcaoId = queryParams.get('correcao');
+
+  // Você pode usar o correcaoId conforme necessário
+  console.log('Correcao ID:', correcaoId);
+
   return (
-    <div className="m-0 font-sans text-base antialiased font-normal dark:bg-lime-900 leading-default bg-gray-50 text-slate-500">
-      <div className="absolute w-full bg-blue-500 dark:hidden min-h-75"></div>
+    <main className="bg-gray-100 h-screen">
       <SideBar />
       <NavBar />
-      <div className="flex items-center justify-between px-4 py-1 mx-auto ml-[17rem] flex-wrap-inherit">
-          <ol className="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
-            <li
-              className="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white"
-              aria-current="page"
+
+      <div className="p-4 sm:ml-64">
+        <div className="p-4 mt-14">
+          <CabecalhoCriacao correcao={correcaoId} />
+
+          <div>
+            <button
+              type="submit"
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mt-5"
             >
-              Criação
-            </li>
-          </ol>
-          <h2 className="mb-0 text-white capitalize font-bold">Criação</h2>
+              Enviar
+            </button>
+          </div>
         </div>
-    </div>
+      </div>
+    </main>
   );
 }

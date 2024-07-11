@@ -1,10 +1,12 @@
-
 import FiltroQuestao from "../../components/FiltroQuestao";
+import Intro from "../../components/Intro";
 import NavBar from "../../components/NavBar";
+import Provas from "../../components/Provas";
 import SideBar from "../../components/SideBar";
 import TabelaBancoQuestoes from "../../components/TabelaBancoQuestoes";
 
-export default function Reprovadas() {
+export default function Aprovadas() {
+
   const questoes = [
     {
       id: 1,
@@ -13,7 +15,7 @@ export default function Reprovadas() {
       disciplina: "Disciplina X",
       discursiva: "false",
       dificuldade: "Fácil",
-      aprovada: false,
+      aprovada: true,
       alternativas: [
         { letra: "A", texto: "Esta é a alternativa A.", correta: false },
         { letra: "B", texto: "Esta é a alternativa B.", correta: false },
@@ -29,7 +31,7 @@ export default function Reprovadas() {
       disciplina: "Disciplina Y",
       discursiva: false,
       dificuldade: "Média",
-      aprovada: false,
+      aprovada: true,
       alternativas: [
         { letra: "A", texto: "Outra alternativa A.", correta: false },
         { letra: "B", texto: "Outra alternativa B.", correta: false },
@@ -45,7 +47,7 @@ export default function Reprovadas() {
       disciplina: "Disciplina Y",
       discursiva: true,
       dificuldade: "Média",
-      aprovada: false,
+      aprovada: true,
       gabarito: "Aqui ficará a resposta correta" 
     },
   ];
@@ -59,7 +61,7 @@ export default function Reprovadas() {
         <div className="p-4 mt-14 flex-column">
           <div className="w-full">
             <h3 className="flex items-center mb-3 font-semibold text-gray-900">
-              Questões reprovadas
+              Questões aprovadas
             </h3>
 
             {/* Cabecalho */}

@@ -1,24 +1,28 @@
 import Intro from "../../components/Intro";
 import NavBar from "../../components/NavBar";
+import Provas from "../../components/Provas";
 import SideBar from "../../components/SideBar";
 
 export default function Configuracoes() {
   return (
-    <div className="m-0 font-sans text-base antialiased font-normal dark:bg-lime-900 leading-default bg-gray-50 text-slate-500">
-      <div className="absolute w-full bg-blue-500 dark:hidden min-h-75"></div>
-      <SideBar />
-      <NavBar />
-      <div className="flex items-center justify-between w-full px-4 py-1 mx-auto ml-[17rem] flex-wrap-inherit">
-          <ol className="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
-            <li
-              className="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white"
-              aria-current="page"
-            >
-              Configurações
-            </li>
-          </ol>
-          <h2 className="mb-0 text-white capitalize font-bold">Dashboard</h2>
+    <main className="bg-gray-100 h-screen">
+    <SideBar />
+    <NavBar />
+
+    <div className="p-4 sm:ml-64">
+      <div className="p-4 mt-14">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg bg-white p-5">
+          <div>
+              <button
+                type="submit"
+                className="text-white bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs w-full sm:w-auto px-5 py-2.5 text-center mt-2"
+              >
+                Alterar senha
+              </button>
+            </div>
         </div>
+      </div>
     </div>
+  </main>
   );
 }

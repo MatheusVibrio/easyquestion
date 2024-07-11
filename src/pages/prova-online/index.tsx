@@ -1,24 +1,18 @@
-import Intro from "../../components/Intro";
 import NavBar from "../../components/NavBar";
+import Provas from "../../components/Provas";
 import SideBar from "../../components/SideBar";
 
 export default function ProvaOnline() {
   return (
-    <div className="m-0 font-sans text-base antialiased font-normal dark:bg-lime-900 leading-default bg-gray-50 text-slate-500">
-      <div className="absolute w-full bg-blue-500 dark:hidden min-h-75"></div>
+    <main className="bg-gray-100 h-screen">
       <SideBar />
       <NavBar />
-      <div className="flex items-center justify-between px-4 py-1 mx-auto ml-[17rem] flex-wrap-inherit">
-          <ol className="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
-            <li
-              className="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white"
-              aria-current="page"
-            >
-              Prova
-            </li>
-          </ol>
-          <h2 className="mb-0 text-white capitalize font-bold">Dashboard</h2>
+
+      <div className="p-4 sm:ml-64">
+        <div className="p-4 mt-14">
+          <Provas />
         </div>
-    </div>
+      </div>
+    </main>
   );
 }
