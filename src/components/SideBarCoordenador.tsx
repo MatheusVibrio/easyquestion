@@ -10,16 +10,14 @@ import {
   FiSettings,
 } from "react-icons/fi";
 
-export default function SideBar() {
+export default function SideBarCoordenador() {
   const location = useLocation();
 
   const menuItems = [
-    { href: "/", icon: <FiHome />, label: "Home" },
-    { href: "/criacao", icon: <FiPlusCircle />, label: "Criação" },
-    { href: "/minhas-questoes", icon: <FiFilePlus />, label: "Minhas questões" },
-    { href: "/questoes-reprovadas", icon: <FiFileText />, label: "Reprovadas", notification: 3 },
-    { href: "/questoes-aprovadas", icon: <FiCheckCircle />, label: "Aprovadas" },
-    { href: "/prova-online", icon: <FiFilePlus />, label: "Prova" },
+    { href: "/coordenador/questoes", icon: <FiHome />, label: "Questões" },
+    { href: "/coordenador/reprovadas", icon: <FiFileText />, label: "Reprovadas", notification: 3 },
+    { href: "/coordenador/aprovadas", icon: <FiCheckCircle />, label: "Aprovadas" },
+    { href: "/coordenador/criar-usuario", icon: <FiCheckCircle />, label: "Criar novo usuário" },
     { href: "/configuracoes", icon: <FiSettings />, label: "Configurações" },
     { href: "/login", icon: <FiLogOut />, label: "Logout" },
   ];
