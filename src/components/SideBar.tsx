@@ -27,10 +27,10 @@ export default function SideBar() {
   return (
     <aside
       id="logo-sidebar"
-      className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+      className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 bg-indigo-950 transition-transform -translate-x-full border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
       aria-label="Sidebar"
     >
-      <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+      <div className="h-full px-3 pb-4 overflow-y-auto bg-indigo-950 dark:bg-gray-800">
         <ul className="space-y-2 font-medium">
           {menuItems.map((item) => (
             <li key={item.href}>
@@ -38,8 +38,8 @@ export default function SideBar() {
                 href={item.href}
                 className={`flex items-center p-2 rounded-lg group ${
                   location.pathname === item.href
-                    ? "text-white bg-blue-500"
-                    : "text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                    ? "text-white bg-indigo-700"
+                    : "text-white hover:bg-indigo-700 dark:hover:bg-gray-700"
                 }`}
               >
                 {item.icon}
