@@ -130,7 +130,7 @@ export default function Dashboard() {
                   Sua questão número 25 de nome "Engenharia de software 3" na disciplina de "Gerenciamento e Gestão de Projetos" foi reprovada.
                 </p>
                 <a
-                  href="/reprovadas"
+                  href="/questoes-reprovadas"
                   className="inline-flex items-center px-4 py-1 text-xs font-medium text-gray-900 bg-white border border-gray-900 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-100 focus:text-blue-700"
                 >
                   Corrigir
