@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   FiFileText,
   FiPlusCircle,
@@ -9,9 +9,12 @@ import {
   FiFilePlus,
   FiSettings,
 } from "react-icons/fi";
+import { useAuth } from '../contexts/auth';
 
 export default function SideBar() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { Logout } = useAuth(); 
 
   const menuItems = [
     { href: "/", icon: <FiHome />, label: "Home" },
@@ -21,8 +24,14 @@ export default function SideBar() {
     { href: "/questoes-aprovadas", icon: <FiCheckCircle />, label: "Aprovadas" },
     { href: "/prova-online", icon: <FiFilePlus />, label: "Prova" },
     { href: "/configuracoes", icon: <FiSettings />, label: "Configurações" },
-    { href: "/login", icon: <FiLogOut />, label: "Logout" },
+    { href: "#", icon: <FiLogOut />, label: "Logout", onClick: handleLogout },
   ];
+
+  function handleLogout() {
+    Logout();
+    console.log("entrou aqui")
+    navigate("/");
+  }
 
   return (
     <aside
@@ -33,9 +42,10 @@ export default function SideBar() {
       <div className="h-full px-3 pb-4 overflow-y-auto bg-indigo-950 dark:bg-gray-800">
         <ul className="space-y-2 font-medium">
           {menuItems.map((item) => (
-            <li key={item.href}>
+            <li key={item.label}>
               <a
                 href={item.href}
+                onClick={item.onClick}
                 className={`flex items-center p-2 rounded-lg group ${
                   location.pathname === item.href
                     ? "text-white bg-indigo-700"

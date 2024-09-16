@@ -1,10 +1,32 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/auth";
 
-interface LoginForm {
-  title: string;
-  description: string;
-}
+const LoginForm: React.FC<{ title: string; description: string }> = (props) => {
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const navigate = useNavigate();
 
-export default function LoginForm(props: LoginForm) {
+  const { signed, Login } = useAuth();
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    console.log(signed);
+
+    try {
+      const response = await Login({
+        email: email,
+        senha: senha,
+      });
+      console.log("Response:", response);
+    } catch (error: any) {
+      console.error("Erro ao tentar fazer login:", error);
+      if (error.response) {
+        console.error("Dados do erro:", error.response.data);
+      }
+    }
+  };
 
   return (
     <div className="flex bg-white py-10 px-20 rounded-lg">
@@ -12,11 +34,11 @@ export default function LoginForm(props: LoginForm) {
         <div className="space-y-8">
           <div>
             <h2 className="mt-6 text-left text-3xl text-gray-900 font-bold">
-              Login
+              {props.title}
             </h2>
-            <p className="mt-2">Utilize suas credenciais para acessar sua conta.</p>
+            <p className="mt-2">{props.description}</p>
           </div>
-          <form className="mt-8 space-y-6" action="/">
+          <form className="mt-8 space-y-6" onSubmit={handleLogin}>
             <div>
               <label htmlFor="email" className="sr-only">
                 E-mail
@@ -27,6 +49,8 @@ export default function LoginForm(props: LoginForm) {
                 type="email"
                 autoComplete="email"
                 required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-900 focus:border-blue-900 focus:z-10 sm:text-sm"
                 placeholder="E-mail"
               />
@@ -37,10 +61,12 @@ export default function LoginForm(props: LoginForm) {
               </label>
               <input
                 id="password"
-                name="password"
+                name="senha"
                 type="password"
                 autoComplete="current-password"
                 required
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
                 className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-900 focus:border-blue-900 focus:z-10 sm:text-sm"
                 placeholder="Senha"
               />
@@ -53,7 +79,7 @@ export default function LoginForm(props: LoginForm) {
                 Entrar
               </button>
             </div>
-            <div className="flex items-center justify-center flex-col gap-6"> 
+            <div className="flex items-center justify-center flex-col gap-6">
               <img
                 src="/public/assets/images/logoUnifae.png"
                 alt="Logo Unifae"
@@ -65,3 +91,5 @@ export default function LoginForm(props: LoginForm) {
     </div>
   );
 };
+
+export default LoginForm;

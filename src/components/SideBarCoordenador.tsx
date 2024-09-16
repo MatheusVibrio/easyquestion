@@ -1,17 +1,18 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   FiFileText,
-  FiPlusCircle,
   FiHome,
   FiLogOut,
   FiCheckCircle,
-  FiFilePlus,
   FiSettings,
 } from "react-icons/fi";
+import { useAuth } from "../contexts/auth";
 
 export default function SideBarCoordenador() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { Logout } = useAuth(); 
 
   const menuItems = [
     { href: "/coordenador/questoes", icon: <FiHome />, label: "Questões" },
@@ -19,9 +20,14 @@ export default function SideBarCoordenador() {
     { href: "/coordenador/aprovadas", icon: <FiCheckCircle />, label: "Aprovadas" },
     { href: "/coordenador/criar-usuario", icon: <FiCheckCircle />, label: "Criar novo usuário" },
     { href: "/configuracoes", icon: <FiSettings />, label: "Configurações" },
-    { href: "/login", icon: <FiLogOut />, label: "Logout" },
+    { href: "#", icon: <FiLogOut />, label: "Logout", onClick: handleLogout },
   ];
 
+  function handleLogout() {
+    Logout();
+    console.log("entrou aqui")
+    navigate("/");
+  }
   return (
     <aside
       id="logo-sidebar"

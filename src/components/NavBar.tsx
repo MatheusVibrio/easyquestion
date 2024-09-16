@@ -1,14 +1,4 @@
-import {
-    FiCheckCircle,
-    FiFileMinus,
-    FiFileText,
-    FiHome,
-    FiLogOut,
-    FiPlusCircle,
-    FiSettings,
-  } from "react-icons/fi";
-  
-  export default function NavBar() {
+export default function NavBar() {
     return (
       <nav className="fixed bg-indigo-950 top-0 z-50 w-full dark:bg-gray-800 dark:border-gray-700">
       <div className="px-3 py-3 lg:px-5 lg:pl-3">
@@ -64,4 +54,3 @@ import {
     </nav>
     );
   }
-  

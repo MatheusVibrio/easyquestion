@@ -1,6 +1,4 @@
-import Intro from "../../components/Intro";
 import NavBar from "../../components/NavBar";
-import Provas from "../../components/Provas";
 import SideBar from "../../components/SideBar";
 
 export default function Configuracoes() {

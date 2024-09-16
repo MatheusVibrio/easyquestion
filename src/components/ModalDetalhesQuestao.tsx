@@ -36,29 +36,9 @@ const ModalDetalhesQuestao = ({ selectedQuestao, setSelectedQuestao }: any) => {
     </div>
   );
 
-  const renderReprovada = () => (
-    <div>
-      <textarea
-        className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
-        rows={6}
-        placeholder="Digite a correção aqui..."
-      ></textarea>
-      <button
-        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-        onClick={() => {
-          /* lógica para solicitar novamente */
-        }}
-      >
-        Solicitar Novamente
-      </button>
-    </div>
-  );
 
   const renderContent = () => (
-    selectedQuestao.aprovada == true ?
       selectedQuestao.discursiva == true ? renderDiscursiva() : renderMultiplaEscolha()
-    : 
-      renderReprovada()
   );
 
   return (

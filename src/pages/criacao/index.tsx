@@ -9,7 +9,6 @@ export default function Criacao() {
   const queryParams = new URLSearchParams(location.search);
   const correcaoId = queryParams.get('correcao');
 
-  // Você pode usar o correcaoId conforme necessário
   console.log('Correcao ID:', correcaoId);
 
   return (

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import FiltroQuestao from "../../components/FiltroQuestao";
 import NavBar from "../../components/NavBar";
 import SideBar from "../../components/SideBar";
@@ -22,6 +22,8 @@ const CriarProva = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  const navigate = useNavigate();
 
   const questoes = [
     {
@@ -96,13 +98,16 @@ const CriarProva = () => {
                   </button>
                   <button
                     type="button"
-                    onClick={openModal}
+                    onClick={() => {
+                      navigate(`/criacao`);
+                    }}
                     className="text-white bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs w-full sm:w-auto px-5 py-2.5 text-center"
                   >
                     Criar questão
                   </button>
                 </div>
               </div>
+              
 
               {/* Modal */}
               {isModalOpen && (
@@ -139,10 +144,10 @@ const CriarProva = () => {
                       <div className="p-4 md:p-5 space-y-4">
                         <FiltroQuestao />
                         <TabelaBancoQuestoes questoes={questoes} />
-                        <div>
+                        <div className="flex justify-end">
                           <button
                             type="submit"
-                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center m-5"
+                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center my-2"
                           >
                             Enviar
                           </button>

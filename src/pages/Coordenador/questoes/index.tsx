@@ -1,6 +1,5 @@
 import { useState } from "react";
 import NavBar from "../../../components/NavBar";
-import SideBar from "../../../components/SideBar";
 import ModalComentario from "../../../components/Coordenador/ModalComentario";
 import SideBarCoordenador from "../../../components/SideBarCoordenador";
 
@@ -30,7 +29,7 @@ const questoesParaAprovacao = [
       { letra: "C", texto: "Roma", correta: false },
       { letra: "D", texto: "Madri", correta: false },
     ],
-    gabarito: ""
+    gabarito: "Aqui ficará o gabarito"
   },
 ];
 

@@ -1,28 +1,27 @@
 import { useState } from "react";
 import NavBar from "../../../components/NavBar";
-import SideBar from "../../../components/SideBar";
 import SideBarCoordenador from "../../../components/SideBarCoordenador";
-
+import { createUser } from "../../../api/requisicoes";
 export default function CriarNovoUsuario() {
-  const [nome, setNome] = useState<any>("");
-  const [ra, setRa] = useState<any>("");
-  const [cursos, setCursos] = useState<any>([]);
-  const [email, setEmail] = useState<any>("");
-  const [telefone, setTelefone] = useState<any>("");
-  const [departamento, setDepartamento] = useState<any>("");
+  const [nome, setNome] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [telefone, setTelefone] = useState<string>("");
+  const [senha, setSenha] = useState<string>("");
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const novoProfessor = {
-      nome,
-      ra,
-      cursos,
-      email,
-      telefone,
-      departamento,
-    };
-    console.log("Novo professor cadastrado:", novoProfessor);
-    // Lógica para salvar o professor no banco de dados
+
+    try {
+      const response = await createUser({
+        nome: nome,
+        telefone: telefone,
+        email: email,
+        senha: senha,
+      });
+      console.log("Usuário criado com sucesso:", response);
+    } catch (error) {
+      console.error("Erro ao criar usuário:", error);
+    }
   };
 
   return (
@@ -31,97 +30,58 @@ export default function CriarNovoUsuario() {
       <NavBar />
       <div className="p-4 sm:ml-64">
         <div className="p-4 mt-14">
-          <h3 className="mb-4 font-semibold text-gray-900">
-            Cadastro de Professor
-          </h3>
+          <h3 className="mb-4 font-semibold text-gray-900">Cadastro de Professor</h3>
           <div className="bg-white border border-gray-200 rounded-lg p-8 md:p-8">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="grid mb-6 gap-4 md:grid-cols-2">
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-900">
-                    Nome
-                  </label>
+                  <label className="block mb-2 text-sm font-medium text-gray-900">Nome</label>
                   <input
                     type="text"
-                    id="first_name"
+                    id="nome"
                     className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="John"
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
                     required
                   />
                 </div>
                 <div>
-                  <label className="block mb-2 text-sm font-medium">
-                    Sobrenome
-                  </label>
-                  <input
-                    type="text"
-                    id="last_name"
-                    className="bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    placeholder="Doe"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block mb-2 text-sm font-medium">
-                    Curso
-                  </label>
-                  <input
-                    type="text"
-                    id="company"
-                    className="bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    placeholder="Flowbite"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-900">
-                    Número de telefone
-                  </label>
+                  <label className="block mb-2 text-sm font-medium text-gray-900">Número de telefone</label>
                   <input
                     type="tel"
-                    id="phone"
+                    id="telefone"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="19 99999-9999"
-                    pattern="[0-9][0-9]-[0-9]{3}"
+                    value={telefone}
+                    onChange={(e) => setTelefone(e.target.value)}
                     required
                   />
                 </div>
-              </div>
-              <div className="mb-6">
-                <label className="block mb-2 text-sm font-medium text-gray-900">
-                  E-mail institucional
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="john.doe@company.com"
-                  required
-                />
-              </div>
-              <div className="mb-6">
-                <label className="block mb-2 text-sm font-medium text-gray-900">
-                  Senha
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="•••••••••"
-                  required
-                />
-              </div>
-              <div className="mb-6">
-                <label className="block mb-2 text-sm font-medium text-gray-900">
-                  Confirmar senha
-                </label>
-                <input
-                  type="password"
-                  id="confirm_password"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="•••••••••"
-                  required
-                />
+                <div className="mb-6">
+                  <label className="block mb-2 text-sm font-medium text-gray-900">E-mail institucional</label>
+                  <input
+                    type="email"
+                    id="email"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="john.doe@company.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="mb-6">
+                  <label className="block mb-2 text-sm font-medium text-gray-900">Senha</label>
+                  <input
+                    type="password"
+                    id="senha"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="•••••••••"
+                    value={senha}
+                    onChange={(e) => setSenha(e.target.value)}
+                    required
+                  />
+                </div>
               </div>
               <button
                 type="submit"

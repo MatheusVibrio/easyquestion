@@ -1,7 +1,4 @@
-import FiltroQuestao from "../../components/FiltroQuestao";
-import Intro from "../../components/Intro";
 import NavBar from "../../components/NavBar";
-import Provas from "../../components/Provas";
 import SideBar from "../../components/SideBar";
 import TabelaBancoQuestoes from "../../components/TabelaBancoQuestoes";
 
