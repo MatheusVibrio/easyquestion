@@ -1,5 +1,32 @@
+import { useEffect, useState } from "react";
+import api from "../api/api";
+
 export default function Dashboard() {
-  
+  const [totalApprovedQuestions, setTotalApprovedQuestions] = useState(0);
+  const [userQuestions, setUserQuestions] = useState(0);
+
+  const userId = 1;
+
+  useEffect(() => {
+    api
+      .get("/questoes/aprovadas")
+      .then((response) => {
+        setTotalApprovedQuestions(response.data);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar questões aprovadas:", error);
+      });
+
+    api
+      .get(`/questoes/${userId}`)
+      .then((response) => {
+        setUserQuestions(response.data);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar questões do usuário:", error);
+      });
+  }, [userId]);
+
   return (
     <div className="p-4 sm:ml-64 bg-gray-50 h-screen">
       <div className="p-4 mt-14">
@@ -22,7 +49,7 @@ export default function Dashboard() {
               </div>
               <div>
                 <h5 className="leading-none text-2xl font-bold text-gray-900 ">
-                  150
+                  {userQuestions}
                 </h5>
                 <p className="text-sm font-normal text-gray-500 ">
                   questões geradas
@@ -70,7 +97,7 @@ export default function Dashboard() {
               </div>
               <div>
                 <h5 className="leading-none text-2xl font-bold text-gray-900  ">
-                  120
+                  {totalApprovedQuestions}
                 </h5>
                 <p className="text-sm font-normal text-gray-500  ">
                   questões aprovadas

@@ -3,42 +3,51 @@ import React from "react";
 const ModalDetalhesQuestao = ({ selectedQuestao, setSelectedQuestao }: any) => {
   if (!selectedQuestao) return null;
 
-  const renderMultiplaEscolha = () => (
-    <div className="space-y-4">
-      <div className="text-sm text-gray-900 my-4">
-        <strong>{selectedQuestao.enunciado}</strong>
-      </div>
-      {selectedQuestao.alternativas.map((alternativa: any, index: number) => (
-        <div key={index} className="flex items-center space-x-4">
-          <div
-            className={`w-6 h-6 border rounded-full flex items-center justify-center ${
-              alternativa.correta
-                ? "text-white bg-green-600"
-                : "text-gray-400 border-gray-400"
-            }`}
-          >
-            {alternativa.letra}
-          </div>
-          <div className="text-gray-900 text-sm">{alternativa.texto}</div>
+  console.log(selectedQuestao)
+  const renderMultiplaEscolha = () => {
+    return selectedQuestao?.respostas.length > 0 ? (
+      <div className="space-y-4">
+        <div className="text-sm text-gray-900 my-4">
+          <strong>{selectedQuestao.questao}</strong>
         </div>
-      ))}
-    </div>
-  );
+        {selectedQuestao.respostas.map((resposta: any, index: number) => {
+          const letra = String.fromCharCode(65 + index); 
+          const isCorreta = resposta.correta === "S";
+          return (
+            <div key={index} className="flex items-center space-x-4">
+              <div
+                className={`w-6 h-6 border rounded-full flex items-center justify-center ${
+                  isCorreta
+                    ? "text-white bg-green-600"
+                    : "text-gray-400 border-gray-400"
+                }`}
+              >
+                {letra}
+              </div>
+              <div className="text-gray-900 text-sm">{resposta.resposta}</div>
+            </div>
+          );
+        })}
+      </div>
+    ) : (
+      <p>Nenhuma opção disponível.</p>
+    );
+  };
 
   const renderDiscursiva = () => (
     <div>
       <div className="text-sm text-gray-900 my-4">
-        <strong>{selectedQuestao.enunciado}</strong>
+        <strong>{selectedQuestao.questao}</strong>
       </div>
       <div className="text-sm text-gray-900 mt-4">
-        <strong className="text-red-900">Gabarito:</strong> {selectedQuestao.gabarito}
+        <strong className="text-red-900">Gabarito:</strong> 
+        <p>{selectedQuestao.respostas.map((resposta: any) => resposta.resposta)}</p>
       </div>
     </div>
   );
 
-
   const renderContent = () => (
-      selectedQuestao.discursiva == true ? renderDiscursiva() : renderMultiplaEscolha()
+    selectedQuestao.tipo == 2 ? renderDiscursiva() : renderMultiplaEscolha()
   );
 
   return (
@@ -68,10 +77,7 @@ const ModalDetalhesQuestao = ({ selectedQuestao, setSelectedQuestao }: any) => {
           </button>
 
           <div className="flex gap-3 text-xs items-center">
-            <p className="text-lg font-semibold">Questão {selectedQuestao.id}</p>
-            <div className="bg-blue-800 text-white font-semibold py-1 px-2 rounded-md">
-              {selectedQuestao.curso}
-            </div>
+            <p className="text-lg font-semibold">Questão {selectedQuestao.id_questao}</p>
             <div className="bg-blue-700 text-white font-semibold py-1 px-2 rounded-md">
               {selectedQuestao.disciplina}
             </div>

@@ -6,28 +6,30 @@ import {
   FiLogOut,
   FiCheckCircle,
   FiSettings,
+  FiPlusCircle,
 } from "react-icons/fi";
 import { useAuth } from "../contexts/auth";
 
 export default function SideBarCoordenador() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { Logout } = useAuth(); 
+  const { Logout } = useAuth();
 
   const menuItems = [
     { href: "/coordenador/questoes", icon: <FiHome />, label: "Questões" },
-    { href: "/coordenador/reprovadas", icon: <FiFileText />, label: "Reprovadas", notification: 3 },
-    { href: "/coordenador/aprovadas", icon: <FiCheckCircle />, label: "Aprovadas" },
+    { href: "/coordenador/criacao", icon: <FiPlusCircle />, label: "Criação" },
     { href: "/coordenador/criar-usuario", icon: <FiCheckCircle />, label: "Criar novo usuário" },
-    { href: "/configuracoes", icon: <FiSettings />, label: "Configurações" },
-    { href: "#", icon: <FiLogOut />, label: "Logout", onClick: handleLogout },
+    { href: "/coordenador/criar-disciplina", icon: <FiPlusCircle />, label: "Criar disciplina" },
+    { href: "", icon: <FiLogOut />, label: "Logout", onClick: handleLogout },
   ];
 
-  function handleLogout() {
-    Logout();
-    console.log("entrou aqui")
-    navigate("/");
+  function handleLogout(event: any) {
+    event.preventDefault(); // Previne a ação padrão do link
+    Logout(); // Chama a função de logout do contexto
+    console.log("Logout realizado");
+    navigate("/login"); // Redireciona para a página de login
   }
+
   return (
     <aside
       id="logo-sidebar"
@@ -37,7 +39,7 @@ export default function SideBarCoordenador() {
       <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
         <ul className="space-y-2 font-medium">
           {menuItems.map((item) => (
-            <li key={item.href}>
+            <li key={item.label}>
               <a
                 href={item.href}
                 className={`flex items-center p-2 rounded-lg group ${
@@ -45,14 +47,10 @@ export default function SideBarCoordenador() {
                     ? "text-white bg-blue-500"
                     : "text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 }`}
+                onClick={item.onClick} // Adicione o evento onClick aqui
               >
                 {item.icon}
                 <span className="ms-3">{item.label}</span>
-                {item.notification && (
-                  <span className="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
-                    {item.notification}
-                  </span>
-                )}
               </a>
             </li>
           ))}

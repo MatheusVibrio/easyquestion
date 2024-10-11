@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/auth";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Cookies from 'js-cookie';
 
 const LoginForm: React.FC<{ title: string; description: string }> = (props) => {
   const [email, setEmail] = useState("");
@@ -8,25 +11,43 @@ const LoginForm: React.FC<{ title: string; description: string }> = (props) => {
   const navigate = useNavigate();
 
   const { signed, Login } = useAuth();
+  console.log("useAuth:", { signed, Login }); 
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    console.log(signed);
-
+  
     try {
       const response = await Login({
         email: email,
         senha: senha,
       });
-      console.log("Response:", response);
+  
+      Cookies.set('id_usuario', response.user.id_usuario.toString()); 
+      Cookies.set('token', response.token);
+      Cookies.set('fk_id_tipo_descricao', response.isSupervisor ? 'Coordenador' : 'Professor'); // Ajuste conforme o tipo real que você espera.
+  
+      console.log("Login realizado:", response.isSupervisor);
+  
+      // Verifica o tipo de usuário e redireciona de acordo
+      if (response.isSupervisor) {
+        console.log("Redirecionando para o coordenador");
+        navigate(`/coordenador/questoes`);
+      } else {
+        console.log("Redirecionando para o PROFESSOR");
+        navigate("/");
+      }
     } catch (error: any) {
       console.error("Erro ao tentar fazer login:", error);
       if (error.response) {
+        toast.error("Usuário ou senha incorretos!");
         console.error("Dados do erro:", error.response.data);
       }
     }
   };
+  
+  
+  
+  
 
   return (
     <div className="flex bg-white py-10 px-20 rounded-lg">
@@ -88,6 +109,7 @@ const LoginForm: React.FC<{ title: string; description: string }> = (props) => {
           </form>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

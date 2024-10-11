@@ -5,6 +5,7 @@ import NavBar from "../../components/NavBar";
 import SideBar from "../../components/SideBar";
 import TabelaQuestoesProva from "../../components/TabelaQuestoesProva";
 import TabelaBancoQuestoes from "../../components/TabelaBancoQuestoes";
+import MainLayout from "../../components/MainLayout";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -61,9 +62,7 @@ const CriarProva = () => {
   ];
 
   return (
-    <main className="bg-gray-100 h-screen">
-      <SideBar />
-      <NavBar />
+    <MainLayout>
       <div className="p-4 sm:ml-64">
         <div className="p-4 mt-14 flex-column">
           <div className="w-full">
@@ -143,7 +142,6 @@ const CriarProva = () => {
                       </div>
                       <div className="p-4 md:p-5 space-y-4">
                         <FiltroQuestao />
-                        <TabelaBancoQuestoes questoes={questoes} />
                         <div className="flex justify-end">
                           <button
                             type="submit"
@@ -162,7 +160,7 @@ const CriarProva = () => {
           </div>
         </div>
       </div>
-    </main>
+    </MainLayout>
   );
 };
 

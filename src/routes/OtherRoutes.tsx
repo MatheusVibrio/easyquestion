@@ -1,3 +1,5 @@
+import './styles/globals.css';
+import './styles/fonts.css';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from '../pages/home';
@@ -12,6 +14,7 @@ import AprovadasCoordenador from '../pages/Coordenador/aprovadas';
 import ReprovadasCoordenador from '../pages/Coordenador/reprovadas';
 import CriarNovoUsuario from '../pages/Coordenador/novo-usuario';
 import Configuracoes from '../pages/configuracoes';
+
 
 const OtherRoutes: React.FC = () => {
  return (

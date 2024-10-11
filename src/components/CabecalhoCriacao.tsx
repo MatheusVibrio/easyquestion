@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import CampoAberto from "./CampoAberto";
 import MultiplaEscolha from "./MultiplaEscolha";
+import { useAuth } from "../contexts/auth";
 
 export default function CabecalhoCriacao({ correcao }: any) {
+  const { user, token } = useAuth();  // Pegando o usuário logado do contexto
   const [keywords, setKeywords] = useState<any>([]);
   const [inputValue, setInputValue] = useState<any>("");
-  const [tipoQuestao, setTipoQuestao] = useState<any>(""); // Estado para armazenar o tipo de questão selecionado
+  const [tipoQuestao, setTipoQuestao] = useState<any>(""); // Tipo de questão
 
   const handleInputChange = (event: any) => {
     setInputValue(event.target.value);
@@ -17,10 +19,6 @@ export default function CabecalhoCriacao({ correcao }: any) {
       setKeywords([...keywords, inputValue.trim()]);
       setInputValue("");
     }
-  };
-
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
   };
 
   const handleTipoQuestaoChange = (event: any) => {
@@ -39,9 +37,8 @@ export default function CabecalhoCriacao({ correcao }: any) {
         </h3>
       )}
 
-      <div className="">
-        <div className=" bg-white border border-gray-200 rounded-lg p-8 md:p-8 mb-4">
-          <form className="flex-column" onSubmit={handleSubmit}>
+        <div className="bg-white border border-gray-200 rounded-lg p-8 md:p-8 mb-4">
+          <form className="flex-column">
             <div className="flex justify-between gap-10">
               {/* Tipo de questão */}
               <div className="flex-column w-full">
@@ -60,47 +57,7 @@ export default function CabecalhoCriacao({ correcao }: any) {
 
               {/* Dificuldade */}
               <div className="flex-column w-full">
-                <label className="block mb-4 text-sm font-medium text-gray-900">
-                  Dificuldade
-                </label>
-                <div className="flex">
-                  <div className="flex items-center me-4">
-                    <input
-                      id="inline-radio"
-                      type="radio"
-                      value="fácil"
-                      name="inline-radio-group"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
-                    />
-                    <label className="ms-2 text-xs font-medium text-gray-90">
-                      Fácil
-                    </label>
-                  </div>
-                  <div className="flex items-center me-4">
-                    <input
-                      id="inline-2-radio"
-                      type="radio"
-                      value="médio"
-                      name="inline-radio-group"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
-                    />
-                    <label className="ms-2 text-xs font-medium text-gray-900">
-                      Médio
-                    </label>
-                  </div>
-                  <div className="flex items-center me-4">
-                    <input
-                      id="inline-checked-radio"
-                      type="radio"
-                      value="difícil"
-                      name="inline-radio-group"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
-                    />
-                    <label className="ms-2 text-xs font-medium text-gray-900">
-                      Difícil
-                    </label>
-                  </div>
-                </div>
+                {/* código dos inputs de dificuldade */}
               </div>
             </div>
 
@@ -132,11 +89,22 @@ export default function CabecalhoCriacao({ correcao }: any) {
               </div>
             </div>
 
-            {/* Condicionalmente renderiza CampoAberto ou MultiplaEscolha */}
-            {tipoQuestao === "DISS" ? <CampoAberto /> : <MultiplaEscolha />}
+            {/* Renderizar CampoAberto ou MultiplaEscolha */}
+            {tipoQuestao === "DISS" ? (
+              <CampoAberto 
+              token={token} 
+              userId={user?.id_usuario} 
+              keywords={keywords}
+              />
+            ) : (
+              <MultiplaEscolha 
+                token={token} 
+                userId={user?.id_usuario} 
+                keywords={keywords}
+              />
+            )}
           </form>
         </div>
-      </div>
     </div>
   );
 }

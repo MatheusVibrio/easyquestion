@@ -1,18 +1,14 @@
-import NavBar from "../../components/NavBar";
+import MainLayout from "../../components/MainLayout";
 import Provas from "../../components/Provas";
-import SideBar from "../../components/SideBar";
 
 export default function ProvaOnline() {
   return (
-    <main className="bg-gray-100 h-screen">
-      <SideBar />
-      <NavBar />
-
+    <MainLayout>
       <div className="p-4 sm:ml-64">
         <div className="p-4 mt-14">
           <Provas />
         </div>
       </div>
-    </main>
+    </MainLayout>
   );
 }

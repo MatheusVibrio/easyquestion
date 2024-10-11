@@ -1,11 +1,10 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import CabecalhoCriacao from '../../components/CabecalhoCriacao';
-import NavBar from '../../components/NavBar';
-import SideBar from '../../components/SideBar';
-import MainLayout from '../../components/MainLayout';
-
-export default function Criacao() {
+import SideBar from '../../../components/SideBar';
+import NavBar from '../../../components/NavBar';
+import CabecalhoCriacao from '../../../components/CabecalhoCriacao';
+import MainLayout from '../../../components/MainLayout';
+export default function CriacaoCoordenador() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const correcaoId = queryParams.get('correcao');
@@ -19,6 +18,6 @@ export default function Criacao() {
           <CabecalhoCriacao correcao={correcaoId} />
         </div>
       </div>
-    </MainLayout>
+      </MainLayout>
   );
 }

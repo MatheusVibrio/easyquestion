@@ -23,14 +23,13 @@ export default function SideBar() {
     { href: "/questoes-reprovadas", icon: <FiFileText />, label: "Reprovadas", notification: 3 },
     { href: "/questoes-aprovadas", icon: <FiCheckCircle />, label: "Aprovadas" },
     { href: "/prova-online", icon: <FiFilePlus />, label: "Prova" },
-    { href: "/configuracoes", icon: <FiSettings />, label: "Configurações" },
-    { href: "#", icon: <FiLogOut />, label: "Logout", onClick: handleLogout },
+    { href: "/login", icon: <FiLogOut />, label: "Logout", onClick: handleLogout },
   ];
 
   function handleLogout() {
     Logout();
     console.log("entrou aqui")
-    navigate("/");
+    navigate("/login");
   }
 
   return (

@@ -1,13 +1,10 @@
 import Dashboard from "../../components/Dashboard";
-import NavBar from "../../components/NavBar";
-import SideBar from "../../components/SideBar";
+import MainLayout from "../../components/MainLayout";
 
 export default function Home() {
   return (
-    <main>
-      <SideBar />
-      <NavBar />
+    <MainLayout>
       <Dashboard />
-    </main>
+    </MainLayout>
   );
 }
