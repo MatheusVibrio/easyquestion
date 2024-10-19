@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/auth";
 import api from "../api/api";
 import { toast } from "react-toastify";
 
-export default function FiltroQuestao(){
+export default function FiltroQuestao(aceitaSelecao: any){
   const [questao, setQuestao] = useState<string>("");
   const [disciplina, setDisciplina] = useState<string>("");
   const [curso, setCurso] = useState<string>("");
@@ -35,6 +35,7 @@ export default function FiltroQuestao(){
 
   useEffect(() => {
     const fetchQuestoes = async () => {
+      console.log("todas as questoes")
       if (!userId) return; // Garante que o userId existe
 
       try {
@@ -49,7 +50,23 @@ export default function FiltroQuestao(){
       }
     };
 
-    fetchQuestoes();
+    const fetchQuestoesAprovadas = async () => {
+      console.log("todas as aprovadas")
+      if (!userId) return; // Garante que o userId existe
+
+      try {
+        const response = await api.get(`/questoes/minhasquestoes/aprovadas/${userId}`);
+        setQuestoes(response.data);
+        setFilteredQuestoes(response.data); // Inicializa os dados filtrados com todas as questões
+      } catch (error) {
+        console.error("Erro ao carregar questões:", error);
+        toast.error("Erro ao carregar as questões.");
+      } finally {
+        setLoading(false); // Finaliza o estado de carregamento
+      }
+    };
+
+    aceitaSelecao.aceitaSelecao ? fetchQuestoesAprovadas() : fetchQuestoes();
   }, [userId]);
 
   useEffect(() => {
@@ -175,7 +192,7 @@ export default function FiltroQuestao(){
           </button>
         </div>
       </form>
-      <TabelaBancoQuestoes questoes={filteredQuestoes} />
+      <TabelaBancoQuestoes aceitaSelecao={aceitaSelecao} questoes={filteredQuestoes} reprovadas={false}/>
     </div>
   );
 }

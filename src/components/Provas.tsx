@@ -1,45 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-const provas = [
-  { 
-    nome: "SOFT 4° ANO - 7° SEMESTRE", 
-    disciplina: "Teoria da Computação", 
-    curso: "Engenharia de Software", 
-    questoes: 5 
-  },
-  { 
-    nome: "SOFT 4° ANO - 7° SEMESTRE", 
-    disciplina: "Teoria da Computação", 
-    curso: "Engenharia de Software", 
-    questoes: 5 
-  },
-  { 
-    nome: "SOFT 4° ANO - 7° SEMESTRE", 
-    disciplina: "Teoria da Computação", 
-    curso: "Engenharia de Software", 
-    questoes: 5 
-  },
-  { 
-    nome: "SOFT 4° ANO - 7° SEMESTRE", 
-    disciplina: "Teoria da Computação", 
-    curso: "Engenharia de Software", 
-    questoes: 5 
-  },
-  { 
-    nome: "SOFT 4° ANO - 7° SEMESTRE", 
-    disciplina: "Teoria da Computação", 
-    curso: "Engenharia de Software", 
-    questoes: 5 
-  },
-];
+import api from "../api/api";
+import { useAuth } from "../contexts/auth";
 
 export default function Provas() {
+  const [provas, setProvas] = useState([]);
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const storedQuestoes = localStorage.getItem("selectedQuestoes");
 
-  const handleRowClick = () => {
-    navigate("/criar-prova?tipo=edicao");
+  if (storedQuestoes) {
+    const questoesIds = JSON.parse(storedQuestoes);
+    console.log("aqui: ")
+    console.log(questoesIds);
+  }
+
+  const fetchProvas = async () => {
+    try {
+      const response = await api.get(`/provas/${user?.id_usuario}`); 
+      setProvas(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar provas:", error);
+    }
   };
+
+  useEffect(() => {
+    if(user){
+      fetchProvas();
+    }
+
+    
+  }, []);
 
   return (
     <div className="w-full">
@@ -64,21 +56,29 @@ export default function Provas() {
             </tr>
           </thead>
           <tbody>
-            {provas.map((prova, index) => (
-              <tr key={index} className="odd:bg-white even:bg-gray-50 border-b"
-                onClick={handleRowClick}>
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                  {prova.nome}
-                </th>
-                <td className="px-6 py-4">{prova.disciplina}</td>
-                <td className="px-6 py-4">{prova.curso}</td>
-                <td className="px-6 py-4">{prova.questoes}</td>
-                <td className="px-6 py-4 flex gap-2">
-                  <a href="#" className="font-medium text-blue-600 hover:underline">Gerar</a>
-                  <a href="#" className="font-medium text-red-600 hover:underline">Excluir</a>
-                </td>
+            {provas.length > 0 ? (
+              provas.map((prova: any, index: any) => (
+                <tr
+                  key={index}
+                  className="odd:bg-white even:bg-gray-50 border-b"
+                >
+                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                    {prova.descricao}
+                  </th>
+                  <td className="px-6 py-4">{prova.disciplina}</td>
+                  <td className="px-6 py-4">{prova.curso}</td>
+                  <td className="px-6 py-4">{prova.questoes}</td>
+                  <td className="px-6 py-4 flex gap-2">
+                    <a href="#" className="font-medium text-blue-600 hover:underline">Gerar</a>
+                    <a href="#" className="font-medium text-red-600 hover:underline">Excluir</a>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={5} className="px-6 py-4 text-center">Nenhuma prova encontrada</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

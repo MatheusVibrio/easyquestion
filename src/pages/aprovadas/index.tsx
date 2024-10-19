@@ -58,7 +58,7 @@ export default function Aprovadas() {
             <h3 className="flex items-center mb-3 font-semibold text-gray-900">
               Questões aprovadas
             </h3>
-            <TabelaBancoQuestoes questoes={questoes} />
+            <TabelaBancoQuestoes questoes={questoes} aceitaSelecao={false} reprovadas={false} />
           </div>
         </div>
       </div>

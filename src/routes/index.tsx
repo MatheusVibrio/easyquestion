@@ -8,7 +8,7 @@ const Routes: React.FC = () => {
 
     const { signed } = useAuth();
 
-    console.log(signed)
+    console.log("signed:", signed)
     
     return signed ? <OtherRoutes /> : <SignRoutes />;
 };

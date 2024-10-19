@@ -1,18 +1,22 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import Cookies from "js-cookie";
+import { useAuth } from "../contexts/auth";
 
 interface ProtectedRouteProps {
   allowedRoles: string[]; // Tipos permitidos: "Coordenador", "Professor", etc.
   redirectTo: string; // Rota de redirecionamento
 }
-
-
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, redirectTo }) => {
   const userRole = Cookies.get("fk_id_tipo_descricao");
 
   console.log("Verificando acesso. Papel do usuário:", userRole);
-  console.log("Papéis permitidos:", allowedRoles);
+  console.log("UserRole:", userRole, allowedRoles);
+  const { signed } = useAuth();
+
+  if (!signed) {
+    return <Navigate to="/login" />;
+  }
 
   // Verifica se o usuário está logado e se o papel está entre os permitidos
   if (userRole && allowedRoles.includes(userRole)) {

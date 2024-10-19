@@ -1,52 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ModalDetalhesQuestao from "./ModalDetalhesQuestao";
 
-const questoes = [
-  { id: 1, enunciado: "Dentre as alternativas a se...", dificuldade: "Fácil", disciplina: "Engenharia de Software", curso: "Eng. de Software", alternativas: [
-    { letra: "A", texto: "Outra alternativa A.", correta: false },
-    { letra: "B", texto: "Outra alternativa B.", correta: false },
-    { letra: "C", texto: "Outra alternativa C.", correta: true },
-    { letra: "D", texto: "Outra alternativa D.", correta: false },
-    { letra: "E", texto: "Outra alternativa E.", correta: false },
-  ], },
-  { id: 2, enunciado: "Dentre as alternativas a se...", dificuldade: "Fácil", disciplina: "Engenharia de Software", curso: "Eng. de Software", alternativas: [
-    { letra: "A", texto: "Outra alternativa A.", correta: false },
-    { letra: "B", texto: "Outra alternativa B.", correta: false },
-    { letra: "C", texto: "Outra alternativa C.", correta: true },
-    { letra: "D", texto: "Outra alternativa D.", correta: false },
-    { letra: "E", texto: "Outra alternativa E.", correta: false },
-  ], },
-  { id: 3, enunciado: "Dentre as alternativas a se...", dificuldade: "Fácil", disciplina: "Engenharia de Software", curso: "Eng. de Software", alternativas: [
-    { letra: "A", texto: "Outra alternativa A.", correta: false },
-    { letra: "B", texto: "Outra alternativa B.", correta: false },
-    { letra: "C", texto: "Outra alternativa C.", correta: true },
-    { letra: "D", texto: "Outra alternativa D.", correta: false },
-    { letra: "E", texto: "Outra alternativa E.", correta: false },
-  ], },
-  { id: 4, enunciado: "Dentre as alternativas a se...", dificuldade: "Fácil", disciplina: "Engenharia de Software", curso: "Eng. de Software", alternativas: [
-    { letra: "A", texto: "Outra alternativa A.", correta: false },
-    { letra: "B", texto: "Outra alternativa B.", correta: false },
-    { letra: "C", texto: "Outra alternativa C.", correta: true },
-    { letra: "D", texto: "Outra alternativa D.", correta: false },
-    { letra: "E", texto: "Outra alternativa E.", correta: false },
-  ], },
-  { id: 5, enunciado: "Dentre as alternativas a se...", dificuldade: "Fácil", disciplina: "Engenharia de Software", curso: "Eng. de Software", alternativas: [
-    { letra: "A", texto: "Outra alternativa A.", correta: false },
-    { letra: "B", texto: "Outra alternativa B.", correta: false },
-    { letra: "C", texto: "Outra alternativa C.", correta: true },
-    { letra: "D", texto: "Outra alternativa D.", correta: false },
-    { letra: "E", texto: "Outra alternativa E.", correta: false },
-  ], },
-];
+const TabelaQuestoesProva = () => {
+  const [questoes, setQuestoes] = useState([]);
+  const [selectedQuestao, setSelectedQuestao] = useState(null);
 
-export default function TabelaQuestoesProva() {
-
-  const [selectedQuestao, setSelectedQuestao] = useState<any>(null);
+  useEffect(() => {
+    const storedQuestoes = localStorage.getItem("selectedQuestoes");
+    if (storedQuestoes) {
+      const questoesSelecionadas = JSON.parse(storedQuestoes);
+      setQuestoes(questoesSelecionadas);
+    }
+  }, []);
 
   const handleVerClick = (questao: any) => {
+    console.log("Questao selecionada:", questao); // Verifique o valor da questão
     setSelectedQuestao(questao);
   };
-  
+
+  const handleExcluir = (idQuestao: any) => {
+    const questoesAtualizadas = questoes.filter((questao: any) => questao.id_questao !== idQuestao);
+    setQuestoes(questoesAtualizadas);
+    localStorage.setItem("selectedQuestoes", JSON.stringify(questoesAtualizadas));
+  };
+
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg bg-white">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -55,32 +32,56 @@ export default function TabelaQuestoesProva() {
             <th scope="col" className="px-6 py-3">Ordem</th>
             <th scope="col" className="px-6 py-3">Enunciado</th>
             <th scope="col" className="px-6 py-3">Dificuldade</th>
+            <th scope="col" className="px-6 py-3">Curso</th>
+            <th scope="col" className="px-6 py-3">Disciplina</th>
             <th scope="col" className="px-6 py-3">Ações</th>
           </tr>
         </thead>
         <tbody>
-          {questoes.map((questao, index) => (
-            <tr key={questao.id} className="odd:bg-white even:bg-gray-50 border-b"
-              onClick={() => handleVerClick(questao)}>
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{index + 1}</th>
-                <td className="px-6 py-4">{questao.enunciado}</td>
-                <td className="px-6 py-4">{questao.dificuldade}</td>
-                <td className="px-6 py-4 flex gap-2">
-                  <a href="#" className="font-medium text-red-600 hover:underline">Excluir</a>
-                </td>
+          {questoes.length === 0 ? (
+            <tr>
+              <td colSpan={6} className="text-center py-4 text-gray-500">
+                Nenhuma questão selecionada.
+              </td>
             </tr>
-          ))}
+          ) : (
+            questoes.map((questao: any, index: any) => (
+              <tr key={questao.id_questao} className="odd:bg-white even:bg-gray-50 border-b">
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                  {index + 1}
+                </th>
+                <td className="px-6 py-4">{questao.enunciado}</td>
+                <td className="px-6 py-4">{questao.dificuldade || "Não especificado"}</td>
+                <td className="px-6 py-4">{questao.curso}</td>
+                <td className="px-6 py-4">{questao.disciplina}</td>
+                <td className="px-6 py-4 flex gap-2">
+                  <button
+                    onClick={() => handleVerClick(questao)}
+                    className="font-medium text-blue-600 hover:underline"
+                  >
+                    Ver
+                  </button>
+                  <button
+                    onClick={() => handleExcluir(questao.id_questao)}
+                    className="font-medium text-red-600 hover:underline"
+                  >
+                    Excluir
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
-
-      {/* Detalhes da Questão Modal */}
       {selectedQuestao && (
         <ModalDetalhesQuestao
           selectedQuestao={selectedQuestao}
           setSelectedQuestao={setSelectedQuestao}
+          reprovadas={false}
         />
       )}
-
     </div>
   );
-}
+};
+
+export default TabelaQuestoesProva;

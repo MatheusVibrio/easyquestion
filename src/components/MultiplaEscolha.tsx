@@ -2,42 +2,35 @@ import React, { useState, useEffect } from 'react';
 import api from '../api/api';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useAuth } from '../contexts/auth';
 
-const MultiplaEscolha = ({ userId, keywords }: any) => {
+const MultiplaEscolha = ({ userId, keywords, fk_id_curso }: any) => {
   const [enunciado, setEnunciado] = useState('');
   const [fkTipo, setFkTipo] = useState(1);
   const [fkDificuldade, setFkDificuldade] = useState(1);  
   const [fkDisciplina, setFkDisciplina] = useState<any>(1);
-  const [disciplinas, setDisciplinas] = useState<any[]>([]); // Lista de disciplinas
+  const [disciplinas, setDisciplinas] = useState<any[]>([]); //  Lista de disciplinas
   const [options, setOptions] = useState<any[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [correctOption, setCorrectOption] = useState(0);
-  const { user } = useAuth()
 
-  const token = sessionStorage.getItem('@App:token');
+  const token = sessionStorage.getItem('@App:token'); 
+  const user = JSON.parse(sessionStorage.getItem('@App:user') || '{}');
 
   // Função para buscar disciplinas
   useEffect(() => {
     if (user) {
-    const fetchDisciplinas = async () => {
-     
-      try {
-        const response = await api.get(`/disciplina/${user.fk_id_curso.id_curso}`);
-        console.log(response.data);
-        setDisciplinas(response.data);
-      } catch (error) {
-        console.error('Erro ao carregar disciplinas:', error);
-      }
-    };
-    fetchDisciplinas();
-  }
-
+      const fetchDisciplinas = async () => {
+        try {
+          const response = await api.get(`/disciplina/${fk_id_curso}`);
+          setDisciplinas(response.data);
+          console.log(disciplinas);
+        } catch (error) {
+          console.error('Erro ao carregar disciplinas:', error);
+        }
+      };
+      fetchDisciplinas();
+    }
   }, [token]);
-
-  const handleEnunciadoChange = (event: any) => {
-    setEnunciado(event.target.value);
-  };
 
   const handleInputChange = (event: any) => {
     setInputValue(event.target.value);
@@ -45,11 +38,21 @@ const MultiplaEscolha = ({ userId, keywords }: any) => {
 
   const handleKeyPress = (event: any) => {
     if (event.key === 'Enter' && inputValue.trim() !== '') {
+      if (options.length >= 5) {
+        toast.error('Você só pode adicionar até 5 alternativas.');
+        return;
+      }
       setOptions([...options, { text: inputValue, isEditing: false }]);
       setInputValue('');
       event.preventDefault();
     }
   };
+
+  const handleEnunciadoChange = (event: any) => {
+    setEnunciado(event.target.value);
+  };
+
+  
 
 const handleEditOption = (index: any) => {
   const newOptions = options.map((option, i) => {
@@ -83,6 +86,11 @@ const handleEditOption = (index: any) => {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
+
+    if (options.length < 2 || options.length > 5) {
+      toast.error('Você deve fornecer entre 2 e 5 alternativas.');
+      return;
+    }
 
     const formData = {
       enunciado,
@@ -127,19 +135,18 @@ const handleEditOption = (index: any) => {
         )
       );
 
-      toast.success("Questão cadastrada com sucesso!");
+      toast.success('Questão cadastrada com sucesso!');
 
+      setEnunciado('');
+      setFkTipo(1);
+      setFkDificuldade(1);
+      setFkDisciplina(1);
+      setOptions([]);
+      setInputValue('');
+      setCorrectOption(0);
     } catch (error: any) {
-      if (error.response) {
-        console.error('Erro ao criar a questão:', error.response.data);
-        alert(`Erro ao criar a questão: ${error.response.data.message || 'Erro desconhecido'}`);
-      } else if (error.request) {
-        console.error('Nenhuma resposta recebida:', error.request);
-        alert('Erro ao criar a questão: Nenhuma resposta do servidor');
-      } else {
-        console.error('Erro desconhecido ao criar a questão:', error.message);
-        alert('Erro desconhecido ao criar a questão.');
-      }
+      console.error('Erro ao criar a questão:', error.response || error.message);
+      toast.error('Erro ao criar a questão.');
     }
   };
 
@@ -173,6 +180,7 @@ const handleEditOption = (index: any) => {
                 value={1}
                 checked={fkDificuldade === 1}
                 onChange={() => setFkDificuldade(1)}
+                className='mr-2'
               /> 
               Fácil
             </label>
@@ -182,6 +190,7 @@ const handleEditOption = (index: any) => {
                 value={2}
                 checked={fkDificuldade === 2}
                 onChange={() => setFkDificuldade(2)}
+                className='mr-2'
               /> 
               Médio
             </label>
@@ -191,6 +200,7 @@ const handleEditOption = (index: any) => {
                 value={3}
                 checked={fkDificuldade === 3}
                 onChange={() => setFkDificuldade(3)}
+                className='mr-2'
               /> 
               Difícil
             </label>

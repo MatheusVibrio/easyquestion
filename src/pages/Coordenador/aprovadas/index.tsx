@@ -60,7 +60,7 @@ export default function AprovadasCoordenador() {
             </h3>
 
             {/* Tabela de Questões Aprovadas */}
-            <TabelaBancoQuestoes questoes={questoes} />
+            <TabelaBancoQuestoes questoes={questoes} aceitaSelecao={false} reprovadas={false}/>
           </div>
         </div>
       </div>

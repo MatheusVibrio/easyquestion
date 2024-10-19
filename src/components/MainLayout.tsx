@@ -13,6 +13,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const { isSupervisor } = useAuth();
   const [localSupervisor, setLocalSupervisor] = useState<boolean | null>(null);
   
+  console.log("bateu aqui");
+  
   useEffect(() => {
     const storedSupervisor = sessionStorage.getItem('@App:isSupervisor');
     if (storedSupervisor !== null) {

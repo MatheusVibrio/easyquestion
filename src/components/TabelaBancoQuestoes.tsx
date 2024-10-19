@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import ModalDetalhesQuestao from "./ModalDetalhesQuestao";
-import ModalCorrigirQuestao from "./ModalCorrigirQuestao";
 import api from "../api/api";
 import { toast } from "react-toastify";
 
-const TabelaBancoQuestoes = ({ onVerClick, questoes }: any) => {
+const TabelaBancoQuestoes = ({ onVerClick, questoes, aceitaSelecao, reprovadas, comentario }: any) => {
   const [selectedQuestao, setSelectedQuestao] = useState<any>(null);
+  const [selectedQuestoes, setSelectedQuestoes] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
+  const [questaoToDelete, setQuestaoToDelete] = useState<any>(null);
+
+  console.log("aq", questoes);
+
+  useEffect(() => {
+    const savedQuestoes = localStorage.getItem("selectedQuestoes");
+    if (savedQuestoes) {
+      setSelectedQuestoes(JSON.parse(savedQuestoes));
+    }
+  }, []);
 
   const fetchQuestaoDetalhes = async (idQuestao: number) => {
     setLoading(true);
@@ -23,21 +33,33 @@ const TabelaBancoQuestoes = ({ onVerClick, questoes }: any) => {
   };
 
   const handleVerClick = (questao: any) => {
-    fetchQuestaoDetalhes(questao.id_questao); // Passa o ID da questão para buscar detalhes
+    fetchQuestaoDetalhes(questao.id_questao);
   };
 
-  const handleDeleteClick = async (idQuestao: number) => {
-    const confirmDelete = window.confirm("Tem certeza que deseja deletar esta questão?");
-    if (!confirmDelete) return;
-
+  const handleDeleteClick = async () => {
     try {
-      await api.delete(`/questoes/${idQuestao}`);
-      window.location.reload(); 
+      await api.delete(`/questoes/${questaoToDelete.id_questao}`);
+      window.location.reload();
       toast.success("Questão deletada com sucesso!");
     } catch (error) {
       console.error("Erro ao deletar questão:", error);
-      alert("Erro ao deletar a questão.");
+      toast.error("Questão vinculada a uma prova. Não é possível excluir.");
+    } finally {
+      setDeleteModalOpen(false);
     }
+  };
+
+  const handleSelectQuestao = (questao: any) => {
+    let updatedQuestoes: any[] = [];
+
+    if (selectedQuestoes.some(q => q.id_questao === questao.id_questao)) {
+      updatedQuestoes = selectedQuestoes.filter(q => q.id_questao !== questao.id_questao);
+    } else {
+      updatedQuestoes = [...selectedQuestoes, questao];
+    }
+
+    localStorage.setItem("selectedQuestoes", JSON.stringify(updatedQuestoes));
+    setSelectedQuestoes(updatedQuestoes);
   };
 
   return (
@@ -63,8 +85,11 @@ const TabelaBancoQuestoes = ({ onVerClick, questoes }: any) => {
           ) : (
             questoes.map((questao: any) => (
               <tr
-                key={questao.id_questao} // Certifique-se de que 'questao.id' é único.
-                className={`cursor-pointer ${questao.id % 2 === 0 ? "bg-white" : "bg-gray-50"}`}
+                key={questao.id_questao}
+                className={`cursor-pointer border-b-2 ${((aceitaSelecao.aceitaSelecao == true) && selectedQuestoes.some(q => q.id_questao === questao.id_questao)) ? "border-blue-500 bg-blue-100" : "border-transparent"}
+                  ${questao.id_questao % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                `}
+                onClick={() => handleSelectQuestao(questao)}
               >
                 <th
                   scope="row"
@@ -77,20 +102,32 @@ const TabelaBancoQuestoes = ({ onVerClick, questoes }: any) => {
                 <td className="px-6 py-4">{questao.disciplina}</td>
                 <td className="px-6 py-4">{questao.tipo}</td>
                 <td className="px-6 py-4">{questao.dificuldade}</td>
-                <td className="px-6 py-4">
+                <td className="px-6 py-4 flex space-x-2">
+                  {(aceitaSelecao.aceitaSelecao === true) && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleSelectQuestao(questao);
+                      }}
+                      className={`px-3 py-1 rounded ${selectedQuestoes.some(q => q.id_questao === questao.id_questao) ? "bg-blue-500 text-white" : "bg-gray-200"}`}
+                    >
+                      {selectedQuestoes.some(q => q.id_questao === questao.id_questao) ? "Selecionado" : "Selecionar"}
+                    </button>
+                  )}
                   <button
                     onClick={(e) => {
-                      e.stopPropagation(); // Evitar que o evento se propague para a linha
-                      handleVerClick(questao); // Chama a função para buscar detalhes
+                      e.stopPropagation();
+                      handleVerClick(questao);
                     }}
-                    className="font-medium text-blue-600 hover:underline mr-2"
+                    className="font-medium text-blue-600 hover:underline"
                   >
                     Ver
                   </button>
                   <button
                     onClick={(e) => {
-                      e.stopPropagation(); // Evitar que o evento se propague para a linha
-                      handleDeleteClick(questao.id_questao); // Alterei para `questao.id` 
+                      e.stopPropagation();
+                      setQuestaoToDelete(questao);
+                      setDeleteModalOpen(true);
                     }}
                     className="font-medium text-red-600 hover:underline"
                   >
@@ -103,15 +140,39 @@ const TabelaBancoQuestoes = ({ onVerClick, questoes }: any) => {
         </tbody>
       </table>
 
-      {/* Modal para mostrar detalhes da questão */}
       {loading ? (
-        <div>Carregando...</div> // Exibe um carregando enquanto busca os detalhes
+        <div>Carregando...</div>
       ) : selectedQuestao ? (
         <ModalDetalhesQuestao
           selectedQuestao={selectedQuestao}
           setSelectedQuestao={setSelectedQuestao}
+          reprovadas={reprovadas}
         />
       ) : null}
+
+      {/* Modal de Confirmação de Exclusão */}
+      {isDeleteModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+            <h2 className="text-lg font-semibold mb-4">Confirmação de Exclusão</h2>
+            <p className="mb-6">Tem certeza que deseja deletar esta questão?</p>
+            <div className="flex justify-center space-x-4">
+              <button
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                onClick={handleDeleteClick}
+              >
+                Deletar
+              </button>
+              <button
+                className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400"
+                onClick={() => setDeleteModalOpen(false)}
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

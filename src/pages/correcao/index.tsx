@@ -9,11 +9,11 @@ import { ClipLoader } from "react-spinners"; // Importa o loader
 import MainLayout from "../../components/MainLayout";
 
 export default function Reprovadas() {
-  const [questoes, setQuestoes] = useState<any[]>([]);
+  const [questoes, setQuestoes] = useState<any>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  const { user } = useAuth();
+  
+  const user = JSON.parse(sessionStorage.getItem('@App:user') || '{}');
   const id_usuario = user?.id_usuario;
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function Reprovadas() {
       if (user) {
         try {
           const response = await api.get(`/questoes/minhasquestoes/reprovadas/${id_usuario}`);
-          setQuestoes(response.data); // Supondo que os dados estejam no response.data
+          setQuestoes(response.data);
         } catch (err) {
           setError("Erro ao carregar as questões reprovadas.");
         } finally {
@@ -34,6 +34,7 @@ export default function Reprovadas() {
     };
 
     fetchQuestoesReprovadas();
+    console.log(questoes);
   }, [id_usuario]);
 
   if (loading) {
@@ -58,7 +59,7 @@ export default function Reprovadas() {
             </h3>
 
             {/* Tabela com as questões reprovadas */}
-            <TabelaBancoQuestoes questoes={questoes} />
+            <TabelaBancoQuestoes questoes={questoes} aceitaSelecao={false} reprovadas={true}/>
           </div>
         </div>
       </div>

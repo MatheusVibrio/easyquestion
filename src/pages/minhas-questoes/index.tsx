@@ -1,23 +1,13 @@
 import { useEffect, useState } from "react";
 import FiltroQuestao from "../../components/FiltroQuestao";
-import TabelaBancoQuestoes from "../../components/TabelaBancoQuestoes";
-import { toast } from "react-toastify";
-import api from "../../api/api";
 import { useAuth } from "../../contexts/auth";
 import { ClipLoader } from "react-spinners"; // Importa o loader
 import MainLayout from "../../components/MainLayout";
 
 export default function MinhasQuestoes() {
-  const [questoes, setQuestoes] = useState([]);
-  const [loading, setLoading] = useState(true); // Controla o estado de carregamento
   const { user } = useAuth();
   const userId = user?.id_usuario;
-
   
-  const handleVerClick = (questao: any) => {
-    console.log("Questão clicada:", questao);
-  };
-
   // Exibe o loader enquanto o userId ainda não foi carregado ou as questões estão sendo buscadas
   if (!userId) {
     return (
@@ -38,7 +28,7 @@ export default function MinhasQuestoes() {
 
             {/* Cabeçalho */}
             <div className="bg-white border border-gray-200 rounded-lg p-8 md:p-8 mb-4">
-              <FiltroQuestao />
+              <FiltroQuestao aceitaSelecao={false}/>
             </div>
             {/* Exibe a tabela de questões */}
             </div>

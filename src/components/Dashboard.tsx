@@ -109,7 +109,7 @@ export default function Dashboard() {
 
         {/* Card de notificações */}
         <div className=" mx-auto">
-          <div className=" bg-white border border-gray-200 rounded-lg p-8 md:p-10 mb-4">
+          {/* <div className=" bg-white border border-gray-200 rounded-lg p-8 md:p-10 mb-4">
             <ol className="relative border-s border-gray-200">
               <li className="mb-8 ms-8">
                 <span className="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -start-3 ring-8">
@@ -184,7 +184,7 @@ export default function Dashboard() {
                 </p>
               </li>
             </ol>
-          </div>
+          </div> */}
 
           {/* Dois últimos cards de dicas */}
           <div className="grid md:grid-cols-2 gap-4">

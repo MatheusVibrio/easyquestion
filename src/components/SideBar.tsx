@@ -7,7 +7,6 @@ import {
   FiLogOut,
   FiCheckCircle,
   FiFilePlus,
-  FiSettings,
 } from "react-icons/fi";
 import { useAuth } from '../contexts/auth';
 
@@ -20,9 +19,9 @@ export default function SideBar() {
     { href: "/", icon: <FiHome />, label: "Home" },
     { href: "/criacao", icon: <FiPlusCircle />, label: "Criação" },
     { href: "/minhas-questoes", icon: <FiFilePlus />, label: "Minhas questões" },
-    { href: "/questoes-reprovadas", icon: <FiFileText />, label: "Reprovadas", notification: 3 },
+    { href: "/questoes-reprovadas", icon: <FiFileText />, label: "Reprovadas" },
     { href: "/questoes-aprovadas", icon: <FiCheckCircle />, label: "Aprovadas" },
-    { href: "/prova-online", icon: <FiFilePlus />, label: "Prova" },
+    { href: "/provas", icon: <FiFilePlus />, label: "Prova" },
     { href: "/login", icon: <FiLogOut />, label: "Logout", onClick: handleLogout },
   ];
 
@@ -53,11 +52,6 @@ export default function SideBar() {
               >
                 {item.icon}
                 <span className="ms-3">{item.label}</span>
-                {item.notification && (
-                  <span className="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
-                    {item.notification}
-                  </span>
-                )}
               </a>
             </li>
           ))}

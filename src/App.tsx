@@ -46,7 +46,7 @@ function App() {
     <Route path="/questoes-reprovadas" element={<Reprovadas />} />
     <Route path="/criacao" element={<Criacao />} />
     <Route path="/questoes-aprovadas" element={<Aprovadas />} />
-    <Route path="/prova-online" element={<ProvaOnline />} />
+    <Route path="/provas" element={<ProvaOnline />} />
     <Route path="/minhas-questoes" element={<MinhasQuestoes />} />
     <Route path="/criar-prova" element={<CriarProva />} />
     <Route path="/configuracoes" element={<Configuracoes />} />
