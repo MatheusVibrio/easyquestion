@@ -4,6 +4,7 @@ import api from "../api/api";
 export default function Dashboard() {
   const [totalApprovedQuestions, setTotalApprovedQuestions] = useState(0);
   const [userQuestions, setUserQuestions] = useState(0);
+  const [totalProvas, setQtdProvas] = useState(0);
 
   const userId = 1;
 
@@ -21,6 +22,15 @@ export default function Dashboard() {
       .get(`/questoes/${userId}`)
       .then((response) => {
         setUserQuestions(response.data);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar questões do usuário:", error);
+      });
+
+      api
+      .get(`/provas/quantidade`)
+      .then((response) => {
+        setQtdProvas(response.data);
       })
       .catch((error) => {
         console.error("Erro ao buscar questões do usuário:", error);
@@ -73,7 +83,7 @@ export default function Dashboard() {
               </div>
               <div>
                 <h5 className="leading-none text-2xl font-bold text-gray-900  ">
-                  10
+                  {totalProvas}
                 </h5>
                 <p className="text-sm font-normal text-gray-500  ">
                   provas geradas

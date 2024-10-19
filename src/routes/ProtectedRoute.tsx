@@ -14,9 +14,9 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, redirectT
   console.log("UserRole:", userRole, allowedRoles);
   const { signed } = useAuth();
 
-  if (!signed) {
-    return <Navigate to="/login" />;
-  }
+  //if (!signed) {
+    //return <Navigate to="/login" />;
+  //}
 
   // Verifica se o usuário está logado e se o papel está entre os permitidos
   if (userRole && allowedRoles.includes(userRole)) {
