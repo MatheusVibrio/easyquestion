@@ -20,6 +20,9 @@ export default function CampoAberto({ token, userId, keywords, fk_id_curso }: an
       try {
         const response = await api.get(`/disciplina/${fk_id_curso}`);
         setDisciplinas(response.data);
+        if (response.data.length > 0) {
+            setFkDisciplina(response.data[0].id_disciplina); 
+          }
       } catch (error) {
         console.error('Erro ao carregar disciplinas:', error);
       }
