@@ -33,6 +33,8 @@ export default function Provas() {
   };
 
   useEffect(() => {
+    localStorage.removeItem("selectedQuestoes");
+    
     if (user) {
       fetchProvas();
     }
