@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ModalDetalhesQuestao from "./ModalDetalhesQuestao";
+import { toast } from "react-toastify";
+import api from "../api/api";
 
 const TabelaQuestoesProva = () => {
   const [questoes, setQuestoes] = useState([]);
@@ -13,8 +15,18 @@ const TabelaQuestoesProva = () => {
     }
   }, []);
 
+  const fetchQuestaoDetalhes = async (idQuestao: number) => {
+    try {
+      const response = await api.get(`/questoes/detalhes/${idQuestao}`);
+      setSelectedQuestao(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar detalhes da questão:", error);
+      toast.error("Erro ao buscar detalhes da questão.");
+    }
+  };
+
   const handleVerClick = (questao: any) => {
-    setSelectedQuestao(questao);
+    fetchQuestaoDetalhes(questao.id_questao);
   };
 
   const handleExcluir = (idQuestao: any) => {
@@ -54,8 +66,11 @@ const TabelaQuestoesProva = () => {
                 <td className="px-6 py-4">{questao.curso}</td>
                 <td className="px-6 py-4">{questao.disciplina}</td>
                 <td className="px-6 py-4 flex gap-2">
-                  <button
-                    onClick={() => handleVerClick(questao)}
+                <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleVerClick(questao);
+                    }}
                     className="font-medium text-blue-600 hover:underline"
                   >
                     Ver

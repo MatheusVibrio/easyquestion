@@ -5,15 +5,15 @@ const ModalDetalhesQuestao = ({ selectedQuestao, setSelectedQuestao, reprovadas 
   if (!selectedQuestao) return null;
   const renderMultiplaEscolha = () => {
     return selectedQuestao?.respostas.length > 0 ? (
-      <div className="space-y-4">
-        <div className="text-sm text-gray-900 my-4">
+      <div className="space-y-4 ">
+        <div className="text-sm text-gray-900 my-4 rounded-lg border-2 p-4">
           <strong>{selectedQuestao.questao}</strong>
         </div>
         {selectedQuestao.respostas.map((resposta: any, index: number) => {
           const letra = String.fromCharCode(65 + index); 
           const isCorreta = resposta.correta === "S";
           return (
-            <div key={index} className="flex items-center space-x-4">
+            <div key={index} className="rounded-lg border-2 p-4 flex items-center space-x-4">
               <div
                 className={`w-6 h-6 border rounded-full flex items-center justify-center ${
                   isCorreta
