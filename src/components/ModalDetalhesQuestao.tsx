@@ -39,11 +39,12 @@ const ModalDetalhesQuestao = ({ selectedQuestao, setSelectedQuestao, reprovadas 
 
   const renderDiscursiva = () => (
     <div>
-      <div className="text-sm text-gray-900 my-4">
+      <div className="text-sm text-gray-900 my-4 rounded-lg border-2 p-4 flex flex-col">
+      <strong className="text-blue-900">Enunciado: </strong>
         <strong>{selectedQuestao.questao}</strong>
       </div>
-      <div className="text-sm text-gray-900 mt-4">
-        <strong className="text-red-900">Gabarito:</strong> 
+      <div className="text-sm text-gray-900 mt-4 rounded-lg border-2 p-4 ">
+        <strong className="text-green-900">Gabarito:</strong> 
         <p>{selectedQuestao.respostas.map((resposta: any) => resposta.resposta)}</p>
       </div>
     </div>
@@ -92,17 +93,21 @@ const ModalDetalhesQuestao = ({ selectedQuestao, setSelectedQuestao, reprovadas 
           
 
           {renderContent()}
-          <div id="toast-warning" className="flex my-4 bg-red-200 items-center p-4 text-red-700 bg-white rounded-lg shado" role="alert">
+          {reprovadas && (
+            <div id="toast-warning" className="flex my-4 items-center p-4 text-red-700 bg-red-100 rounded-lg shado" role="alert">
             <div className="inline-flex items-center justify-center flex-shrink-0 h-8 text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">
                 <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z"/>
                 </svg>
                 <span className="sr-only">Warning icon</span>
             </div>
-            <div className="ms-3 text-sm font-normal text-gray-800">{selectedQuestao.comentario}</div>
-        </div>
+            <div className="ms-3 text-sm font-bold text-gray-800">Correção do coordenador: </div>
+            <div className="ms-2 text-sm font-normal text-gray-800">{selectedQuestao.comentario}</div>
         </div>
         
+          )}
+          
+          </div>
       </div>
     </div>
   );
