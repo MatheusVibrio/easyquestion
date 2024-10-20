@@ -69,9 +69,9 @@ export default function CampoAberto({ token, userId, keywords, fk_id_curso }: an
 
       toast.success("Questão cadastrada com sucesso!");
 
-      setEnunciado('');
-      setFkDificuldade(1);
-      setFkDisciplina(1);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000); // 2 segundos de atraso
 
     } catch (error) {
       console.error("Erro ao cadastrar questão:", error);

@@ -37,8 +37,13 @@ const TabelaBancoQuestoes = ({ onVerClick, questoes, aceitaSelecao, reprovadas, 
   const handleDeleteClick = async () => {
     try {
       await api.delete(`/questoes/${questaoToDelete.id_questao}`);
-      window.location.reload();
+      
       toast.success("Questão deletada com sucesso!");
+      
+      // Atrasar o reload para que o toast seja exibido
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000); // 2 segundos de atraso
     } catch (error) {
       console.error("Erro ao deletar questão:", error);
       toast.error("Questão vinculada a uma prova. Não é possível excluir.");
@@ -46,6 +51,7 @@ const TabelaBancoQuestoes = ({ onVerClick, questoes, aceitaSelecao, reprovadas, 
       setDeleteModalOpen(false);
     }
   };
+
 
   const handleSelectQuestao = (questao: any) => {
     let updatedQuestoes: any[] = [];

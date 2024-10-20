@@ -67,6 +67,14 @@ export default function CriarNovoUsuario() {
       }); 
   
       toast.success("Usuário criado com sucesso.");
+
+      // Limpar campos do formulário
+      setNome("");
+      setEmail("");
+      setTelefone("");
+      setSenha("");
+      setFkIdTipo(1); 
+      setFkIdCurso(null);
     } catch (error) {
       toast.error("Erro ao criar usuário.");
       console.error("Erro ao criar usuário:", error);

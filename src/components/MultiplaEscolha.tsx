@@ -139,13 +139,10 @@ const handleEditOption = (index: any) => {
 
       toast.success('Questão cadastrada com sucesso!');
 
-      setEnunciado('');
-      setFkTipo(1);
-      setFkDificuldade(1);
-      setFkDisciplina(1);
-      setOptions([]);
-      setInputValue('');
-      setCorrectOption(0);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000); // 2 segundos de atraso
+      
     } catch (error: any) {
       console.error('Erro ao criar a questão:', error.response || error.message);
       toast.error('Erro ao criar a questão.');
