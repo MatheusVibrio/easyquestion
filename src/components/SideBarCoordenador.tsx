@@ -17,6 +17,7 @@ export default function SideBarCoordenador() {
 
   const menuItems = [
     { href: "/coordenador/questoes", icon: <FiHome />, label: "Questões" },
+    { href: "/coordenador/minhas-questoes", icon: <FiHome />, label: "Minhas Questões" },
     { href: "/coordenador/criacao", icon: <FiPlusCircle />, label: "Criação" },
     { href: "/coordenador/criar-usuario", icon: <FiCheckCircle />, label: "Criar novo usuário" },
     { href: "/coordenador/criar-disciplina", icon: <FiPlusCircle />, label: "Criar disciplina" },

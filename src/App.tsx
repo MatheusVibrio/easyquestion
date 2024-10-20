@@ -18,6 +18,7 @@ import './styles/fonts.css';
 import { ToastContainer } from "react-toastify";
 import CriacaoCoordenador from "./pages/Coordenador/criacao-coordenador";
 import CriacaoDisciplina from "./pages/Coordenador/criacao-disciplina";
+import MinhasQuestoesCoordenador from "./pages/Coordenador/minhas-questoes-coordenador";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
   {/* Rotas protegidas para Coordenadores */}
   <Route element={<ProtectedRoute allowedRoles={["Coordenador"]} redirectTo="/login" />}>
     <Route path="/coordenador/questoes" element={<QuestoesCoordenador/>} />
+    <Route path="/coordenador/minhas-questoes" element={<MinhasQuestoesCoordenador/>} />
     <Route path="/coordenador/criacao" element={<CriacaoCoordenador/>} />
     <Route path="/coordenador/aprovadas" element={<AprovadasCoordenador />} />
     <Route path="/coordenador/reprovadas" element={<ReprovadasCoordenador />} />
