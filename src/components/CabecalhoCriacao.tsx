@@ -6,7 +6,6 @@ import { useAuth } from "../contexts/auth";
 export default function CabecalhoCriacao({ correcao }: any) {
   const { token } = useAuth();  // Pegando o usuário logado do contexto
   const user = JSON.parse(sessionStorage.getItem('@App:user') || '{}');
-  console.log(user.fk_id_curso.id_curso);
   const [keywords, setKeywords] = useState<any>([]);
   const [inputValue, setInputValue] = useState<any>("");
   const [tipoQuestao, setTipoQuestao] = useState<any>(""); // Tipo de questão

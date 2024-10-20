@@ -86,7 +86,6 @@ export const AuthProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
     sessionStorage.removeItem('@App:user');
     sessionStorage.removeItem('@App:token');
     sessionStorage.removeItem('@App:isSupervisor');
-    console.log("Logout realizado");
   }
 
   return (

@@ -21,15 +21,12 @@ export default function Provas() {
 
   if (storedQuestoes) {
     const questoesIds = JSON.parse(storedQuestoes);
-    console.log("aqui: ");
-    console.log(questoesIds);
   }
 
   const fetchProvas = async () => {
     try {
       const response = await api.get(`/provas/${user?.id_usuario}`);
       setProvas(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Erro ao buscar provas:", error);
     }
@@ -43,7 +40,6 @@ export default function Provas() {
 
   const handleExcluirProva = async (id_prova: number) => {
   try {
-    console.log("ID da prova para excluir:", id_prova); // Log para verificar o valor do id_prova
     await api.delete(`/provas/${id_prova}`);
     toast.success("Prova excluída com sucesso!");
     setProvas(provas.filter(prova => prova.id_prova !== id_prova));

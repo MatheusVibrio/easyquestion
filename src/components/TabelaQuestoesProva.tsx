@@ -14,7 +14,6 @@ const TabelaQuestoesProva = () => {
   }, []);
 
   const handleVerClick = (questao: any) => {
-    console.log("Questao selecionada:", questao); // Verifique o valor da questão
     setSelectedQuestao(questao);
   };
 

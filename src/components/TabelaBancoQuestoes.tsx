@@ -10,8 +10,6 @@ const TabelaBancoQuestoes = ({ onVerClick, questoes, aceitaSelecao, reprovadas, 
   const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
   const [questaoToDelete, setQuestaoToDelete] = useState<any>(null);
 
-  console.log("aq", questoes);
-
   useEffect(() => {
     const savedQuestoes = localStorage.getItem("selectedQuestoes");
     if (savedQuestoes) {

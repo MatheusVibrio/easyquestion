@@ -15,14 +15,12 @@ export default function QuestoesCoordenador() {
 
   const token = sessionStorage.getItem('@App:token');
   const user = JSON.parse(sessionStorage.getItem('@App:user') || '{}');
-  console.log("usuario:", user.id_usuario);
 
   const id_curso =user?.fk_id_curso.id_curso;
 
   // Função para buscar as questões
   const fetchQuestoes = async () => {
     if(user){
-      console.log("id curso:", id_curso);
       try {
         const response = await api.get(`/questoes/minhasquestoes/analise/${id_curso}`, {
           headers: {
@@ -43,7 +41,6 @@ export default function QuestoesCoordenador() {
   // Chama a função quando o componente monta
   useEffect(() => {
     fetchQuestoes();
-    console.log("caiu aq");
   }, []); 
 
   const handleExpand = (id: any) => {

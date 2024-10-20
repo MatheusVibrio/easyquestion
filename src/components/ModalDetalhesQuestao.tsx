@@ -2,11 +2,7 @@ import React from "react";
 import Reprovadas from "../pages/correcao";
 
 const ModalDetalhesQuestao = ({ selectedQuestao, setSelectedQuestao, reprovadas }: any) => {
-  console.log(selectedQuestao.comentario)
   if (!selectedQuestao) return null;
-
-  console.log(selectedQuestao)
-  console.log("reprovadas: " + reprovadas)
   const renderMultiplaEscolha = () => {
     return selectedQuestao?.respostas.length > 0 ? (
       <div className="space-y-4">

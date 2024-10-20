@@ -55,7 +55,6 @@ export default function ReprovadasCoordenador() {
 
   const handleModalSubmit = (comentario: any) => {
     // Lógica para rejeitar a questão com comentário
-    console.log(`Questão ${selectedQuestaoId} rejeitada com comentário: ${comentario}`);
     setQuestoes(questoes.filter((questao: any) => questao.id !== selectedQuestaoId));
     handleModalClose();
   };

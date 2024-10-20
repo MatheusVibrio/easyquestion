@@ -19,7 +19,6 @@ export default function CampoAberto({ token, userId, keywords, fk_id_curso }: an
      
       try {
         const response = await api.get(`/disciplina/${fk_id_curso}`);
-        console.log(response.data);
         setDisciplinas(response.data);
       } catch (error) {
         console.error('Erro ao carregar disciplinas:', error);
@@ -48,7 +47,6 @@ export default function CampoAberto({ token, userId, keywords, fk_id_curso }: an
           'Content-Type': 'application/json'
         }
       });
-      console.log("Questão cadastrada:", response.data);
 
       cadastrarResposta(response.data.id_questao);
 
@@ -84,7 +82,6 @@ export default function CampoAberto({ token, userId, keywords, fk_id_curso }: an
       fk_id_questao: idQuestao,
     };
 
-    console.log(respostaData)
     try {
       const response = await api.post('/questoes/respostas', respostaData, {
         headers: {
@@ -92,7 +89,6 @@ export default function CampoAberto({ token, userId, keywords, fk_id_curso }: an
           'Content-Type': 'application/json'
         }
       });
-      console.log("Resposta cadastrada:", response.data);
     } catch (error) {
       console.error("Erro ao cadastrar resposta:", error);
     }

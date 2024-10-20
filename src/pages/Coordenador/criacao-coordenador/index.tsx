@@ -9,8 +9,6 @@ export default function CriacaoCoordenador() {
   const queryParams = new URLSearchParams(location.search);
   const correcaoId = queryParams.get('correcao');
 
-  console.log('Correcao ID:', correcaoId);
-
   return (
     <MainLayout>
       <div className="p-4 sm:ml-64">

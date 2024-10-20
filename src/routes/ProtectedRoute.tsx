@@ -10,8 +10,6 @@ interface ProtectedRouteProps {
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, redirectTo }) => {
   const userRole = Cookies.get("fk_id_tipo_descricao");
 
-  console.log("Verificando acesso. Papel do usuário:", userRole);
-  console.log("UserRole:", userRole, allowedRoles);
   const { signed } = useAuth();
 
   //if (!signed) {

@@ -23,7 +23,6 @@ const MultiplaEscolha = ({ userId, keywords, fk_id_curso }: any) => {
         try {
           const response = await api.get(`/disciplina/${fk_id_curso}`);
           setDisciplinas(response.data);
-          console.log(disciplinas);
         } catch (error) {
           console.error('Erro ao carregar disciplinas:', error);
         }

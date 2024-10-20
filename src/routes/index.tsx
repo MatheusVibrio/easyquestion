@@ -7,8 +7,6 @@ import SignRoutes from './SignInRoutes';
 const Routes: React.FC = () => {
 
     const { signed } = useAuth();
-
-    console.log("signed:", signed)
     
     return signed ? <OtherRoutes /> : <SignRoutes />;
 };

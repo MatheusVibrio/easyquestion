@@ -26,7 +26,6 @@ export default function SideBarCoordenador() {
   function handleLogout(event: any) {
     event.preventDefault(); // Previne a ação padrão do link
     Logout(); // Chama a função de logout do contexto
-    console.log("Logout realizado");
     navigate("/login"); // Redireciona para a página de login
   }
 

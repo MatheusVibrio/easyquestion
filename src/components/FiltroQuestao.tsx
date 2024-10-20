@@ -35,7 +35,6 @@ export default function FiltroQuestao(aceitaSelecao: any){
 
   useEffect(() => {
     const fetchQuestoes = async () => {
-      console.log("todas as questoes")
       if (!userId) return; // Garante que o userId existe
 
       try {
@@ -51,7 +50,6 @@ export default function FiltroQuestao(aceitaSelecao: any){
     };
 
     const fetchQuestoesAprovadas = async () => {
-      console.log("todas as aprovadas")
       if (!userId) return; // Garante que o userId existe
 
       try {

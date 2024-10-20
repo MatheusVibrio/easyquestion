@@ -41,7 +41,6 @@ const CriarProva = () => {
     
     try {
       // 1. Cadastrar a prova
-      console.log("entrou aq")
       const provaResponse = await api.post("/provas", {
         descricao: "Eng Soft", // Atualize conforme o necessário
         fk_id_disciplina: 1,   // ID da disciplina

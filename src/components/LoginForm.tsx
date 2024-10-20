@@ -11,7 +11,6 @@ const LoginForm: React.FC<{ title: string; description: string }> = (props) => {
   const navigate = useNavigate();
 
   const { signed, Login } = useAuth();
-  console.log("useAuth:", { signed, Login }); 
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,14 +25,10 @@ const LoginForm: React.FC<{ title: string; description: string }> = (props) => {
       Cookies.set('token', response.token);
       Cookies.set('fk_id_tipo_descricao', response.isSupervisor ? 'Coordenador' : 'Professor'); // Ajuste conforme o tipo real que você espera.
   
-      console.log("Login realizado:", response.isSupervisor);
-  
       // Verifica o tipo de usuário e redireciona de acordo
       if (response.isSupervisor) {
-        console.log("Redirecionando para o coordenador");
         navigate(`/coordenador/questoes`);
       } else {
-        console.log("Redirecionando para o PROFESSOR");
         navigate("/");
       }
     } catch (error: any) {

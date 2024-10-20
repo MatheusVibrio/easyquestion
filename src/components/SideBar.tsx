@@ -27,7 +27,6 @@ export default function SideBar() {
 
   function handleLogout() {
     Logout();
-    console.log("entrou aqui")
     navigate("/login");
   }
 

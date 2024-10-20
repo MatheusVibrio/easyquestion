@@ -34,7 +34,6 @@ export default function Reprovadas() {
     };
 
     fetchQuestoesReprovadas();
-    console.log(questoes);
   }, [id_usuario]);
 
   if (loading) {
