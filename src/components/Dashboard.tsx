@@ -217,7 +217,7 @@ export default function Dashboard() {
               Você pode gerar uma prova PDF agora mesmo com apenas alguns cliques, economizando tempo e garantindo um formato profissional e padronizado.
               </p>
               <a
-                href="#"
+                href="/provas"
                 className="text-blue-600 hover:underline font-medium text-sm inline-flex items-center"
               >
                 Gerar
@@ -267,7 +267,7 @@ export default function Dashboard() {
                 Você pode ver todas as questões já aprovadas agora mesmo.
               </p>
               <a
-                href="#"
+                href="/minhas-questoes"
                 className="text-blue-600 hover:underline font-medium text-sm inline-flex items-center"
               >
                 Ver questões
