@@ -23,13 +23,17 @@ interface ProvaDetalhes {
   questoes: Questao[];
 }
 
+const capitalizeFirstLetter = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+};
+
 // Estilos do PDF
 const styles = StyleSheet.create({
   dissertativaLine: {
-    marginTop: 30,           // Espaçamento entre as linhas
-    borderBottomWidth: 1,    // Cria uma linha inferior
-    borderBottomColor: '#000', // Cor da linha (preto)
-    width: '100%',           // Tamanho da linha em 100% da largura
+    marginTop: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#000',
+    width: '100%',
   },
   page: {
     flexDirection: 'column',
@@ -54,19 +58,19 @@ const styles = StyleSheet.create({
   section: {
     marginBottom: 10,
   },
-  title: {
-    fontSize: 24,
-    marginBottom: 10,
-  },
   subtitle: {
-    fontSize: 18,
+    fontSize: 12,
     marginBottom: 5,
   },
   question: {
+    fontSize: 12,
+    marginTop: 10,
     marginBottom: 5,
   },
   answer: {
-    marginLeft: 10,
+    fontSize: 12,
+    marginLeft: 15,
+    marginTop: 10,
   },
 });
 
@@ -77,21 +81,21 @@ const PdfDocument: React.FC<{ provaDetalhes: ProvaDetalhes }> = ({ provaDetalhes
       {/* Cabeçalho com logo e informações do aluno */}
       <View style={styles.header}>
         <View>
-          <Text style={styles.headerText}>Nome: ______________________________________________________</Text>
-          <Text style={styles.headerText}>RA: ____________</Text>
-          <Text style={styles.headerText}>Data: __/__/____</Text>
+          <Text style={styles.headerText}>Nome: ________________________________________________</Text>
+          <Text style={styles.headerText}>RA:   ____________</Text>
+          <Text style={styles.headerText}>Data: ___/___/______</Text>
         </View>
         <Image
           style={styles.logo}
-          src="https://www.fae.br/unifae2/wp-content/uploads/2021/12/logo-unifae-220.png"
+          src="../../public/assets/images/logoUnifae.png" 
         />
       </View>
 
       {/* Informações da prova */}
       <View style={styles.section}>
         <Text style={styles.subtitle}>Prova: {provaDetalhes.prova}</Text>
-        <Text style={styles.subtitle}>Disciplina: {provaDetalhes.disciplina}</Text>
-        <Text style={styles.subtitle}>Curso: {provaDetalhes.curso}</Text>
+        <Text style={styles.subtitle}>Disciplina: {capitalizeFirstLetter(provaDetalhes.disciplina)}</Text>
+        <Text style={styles.subtitle}>Curso: {capitalizeFirstLetter(provaDetalhes.curso)}</Text>
       </View>
 
       {/* Questões */}
@@ -114,11 +118,10 @@ const PdfDocument: React.FC<{ provaDetalhes: ProvaDetalhes }> = ({ provaDetalhes
                 <Text style={styles.dissertativaLine}></Text>
                 <Text style={styles.dissertativaLine}></Text>
               </View>
-        )}
+            )}
+          </View>
+        ))}
       </View>
-  ))}
-</View>
-
     </Page>
   </Document>
 );
