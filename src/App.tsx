@@ -19,6 +19,8 @@ import { ToastContainer } from "react-toastify";
 import CriacaoCoordenador from "./pages/Coordenador/criacao-coordenador";
 import CriacaoDisciplina from "./pages/Coordenador/criacao-disciplina";
 import MinhasQuestoesCoordenador from "./pages/Coordenador/minhas-questoes-coordenador";
+import CriarProvaCoordenador from "./pages/Coordenador/criar-prova-coordenador";
+import ProvaOnlineCoordenador from "./pages/Coordenador/prova-online-coordenador";
 
 function App() {
   return (
@@ -40,6 +42,8 @@ function App() {
     <Route path="/coordenador/reprovadas" element={<ReprovadasCoordenador />} />
     <Route path="/coordenador/criar-usuario" element={<CriarNovoUsuario />} />
     <Route path="/coordenador/criar-disciplina" element={<CriacaoDisciplina />} />
+    <Route path="/coordenador/provas" element={<ProvaOnlineCoordenador />} />
+    <Route path="/coordenador/criar-prova" element={<CriarProvaCoordenador />} />
   </Route>
 
   {/* Rotas protegidas para Professores */}

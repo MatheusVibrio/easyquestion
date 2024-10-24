@@ -21,6 +21,7 @@ export default function SideBarCoordenador() {
     { href: "/coordenador/criacao", icon: <FiPlusCircle />, label: "Criação" },
     { href: "/coordenador/criar-usuario", icon: <FiCheckCircle />, label: "Criar novo usuário" },
     { href: "/coordenador/criar-disciplina", icon: <FiPlusCircle />, label: "Criar disciplina" },
+    { href: "/coordenador/provas", icon: <FiPlusCircle />, label: "Prova" },
     { href: "", icon: <FiLogOut />, label: "Logout", onClick: handleLogout },
   ];
 

@@ -39,6 +39,7 @@ export default function Provas() {
   const [isModalOpen, setIsModalOpen] = useState(false); 
   const navigate = useNavigate();
   const { user } = useAuth();
+  const isCoordenador = user?.fk_id_tipo && (user.fk_id_tipo.id_tipo === 2 || user.fk_id_tipo.id_tipo === 3);
 
   const fetchProvas = async () => {
     try {
@@ -122,12 +123,12 @@ export default function Provas() {
         <h3 className="flex items-center mb-3 font-semibold text-gray-900">
           Provas
         </h3>
-        <a
-          href="/criar-prova"
-          className="font-medium text-white bg-blue-800 px-3 py-1.5 rounded-md text-xs hover:underline"
-        >
-          Criar nova prova
-        </a>
+         <a
+            href={isCoordenador ? "/coordenador/criar-prova" : "/criar-prova"} // Muda o href baseado na condição
+            className="font-medium text-white bg-blue-800 px-3 py-1.5 rounded-md text-xs hover:underline"
+          >
+      Criar nova prova
+    </a>
       </div>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500">
