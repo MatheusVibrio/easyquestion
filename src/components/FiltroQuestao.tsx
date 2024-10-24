@@ -17,15 +17,31 @@ export default function FiltroQuestao(aceitaSelecao: any){
   const { user } = useAuth();
   const userId = user?.id_usuario;
 
+  const removeAcentos = (str: string) => 
+  str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
     // Filtra as questões após o envio do formulário
     const filtered = questoes.filter(q => {
-      const matchesQuestao = questao ? q.enunciado?.includes(questao) : true;
-      const matchesDisciplina = disciplina ? q.disciplina === disciplina : true;
-      const matchesCurso = curso ? q.curso?.includes(curso) : true;
-      const matchesDificuldade = dificuldade ? q.dificuldade === dificuldade : true;
+
+      const matchesQuestao = questao && typeof questao === 'string' && questao.trim() !== '' 
+      ? removeAcentos(q.enunciado)?.toUpperCase().trim().includes(removeAcentos(questao).toUpperCase().trim()) 
+      : true;
+
+      
+      const matchesDisciplina = disciplina 
+      ? removeAcentos(String(q.fk_id_disciplina))?.toUpperCase().trim() === removeAcentos(String(disciplina)).toUpperCase().trim() 
+      : true;
+
+      const matchesCurso = curso && typeof curso === 'string' && curso.trim() !== '' 
+      ? removeAcentos(q.curso)?.toUpperCase().trim().includes(removeAcentos(curso).toUpperCase().trim()) 
+      : true;
+
+      const matchesDificuldade = dificuldade && typeof dificuldade === 'string' && dificuldade.trim() !== '' 
+      ? removeAcentos(q.dificuldade)?.toUpperCase().trim() === removeAcentos(dificuldade).toUpperCase().trim() 
+      : true;
 
       return matchesQuestao && matchesDisciplina && matchesCurso && matchesDificuldade;
     });
@@ -73,6 +89,9 @@ export default function FiltroQuestao(aceitaSelecao: any){
       try {
         const response = await api.get(`/disciplina/${user?.fk_id_curso.id_curso}`);
         setDisciplinas(response.data);
+        if (response.data.length > 0) {
+            setDisciplina(response.data[0].id_disciplina); 
+          }
       } catch (error) {
         console.error("Erro ao carregar disciplinas:", error);
         toast.error("Erro ao carregar disciplinas.");

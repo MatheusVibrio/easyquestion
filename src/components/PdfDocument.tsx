@@ -63,9 +63,10 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   question: {
-    fontSize: 12,
-    marginTop: 10,
-    marginBottom: 5,
+  fontSize: 12,
+  marginTop: 10,
+  marginBottom: 5,
+  fontWeight: 'bold',
   },
   answer: {
     fontSize: 12,
