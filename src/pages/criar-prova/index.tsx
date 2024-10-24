@@ -146,7 +146,6 @@ const CriarProva = () => {
                 </div>
               </div>
 
-              {/* Modal de seleção de questões */}
               {isModalOpen && (
                 <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%)] max-h-full bg-black bg-opacity-50">
                   <div className="relative w-full max-w-6xl max-h-full md:max-w-full">
@@ -193,7 +192,6 @@ const CriarProva = () => {
                 </div>
               )}
 
-              {/* Modal para disciplina e descrição */}
               {isDisciplinaModalOpen && (
                 <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%)] max-h-full bg-black bg-opacity-50">
                   <div className="relative w-full max-w-lg">

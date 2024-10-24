@@ -40,8 +40,6 @@ export default function Dashboard() {
   return (
     <div className="p-4 sm:ml-64 bg-gray-50 h-screen">
       <div className="p-4 mt-14">
-
-        {/* Três primeiros cards */}
         <div className="grid grid-cols-3 gap-4 mb-4">
           <div className="flex items-center h-24 ps-4 bg-white border border-gray-200 rounded-lg">
             <div className="flex items-center">
@@ -195,8 +193,6 @@ export default function Dashboard() {
               </li>
             </ol>
           </div> */}
-
-          {/* Dois últimos cards de dicas */}
           <div className="grid md:grid-cols-2 gap-4">
             <div className=" bg-white  border border-gray-200 rounded-lg p-8 md:p-12">
               <a

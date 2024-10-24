@@ -46,7 +46,6 @@ export default function CabecalhoCriacao({ correcao }: any) {
       <div className="bg-white border border-gray-200 rounded-lg p-8 md:p-8 mb-4">
         <form className="flex-column">
           <div className="flex justify-between gap-10">
-            {/* Tipo de questão */}
             <div className="flex-column w-full">
               <label className="block mb-2 text-sm font-medium text-gray-900">
                 Tipo de questão
@@ -60,14 +59,10 @@ export default function CabecalhoCriacao({ correcao }: any) {
                 <option value="DISS">Dissertativa</option>
               </select>
             </div>
-
-            {/* Dificuldade */}
             <div className="flex-column w-full">
-              {/* código dos inputs de dificuldade */}
             </div>
           </div>
 
-          {/* Palavras-Chave */}
           <div className="mt-4">
             <label className="block text-sm font-medium text-gray-900">
               Palavras-Chave
@@ -102,7 +97,6 @@ export default function CabecalhoCriacao({ correcao }: any) {
             </div>
           </div>
 
-          {/* Renderizar CampoAberto ou MultiplaEscolha */}
           {tipoQuestao === "DISS" ? (
             <CampoAberto 
               token={token} 

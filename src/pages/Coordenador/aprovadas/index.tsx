@@ -3,7 +3,7 @@ import NavBar from "../../../components/NavBar";
 import SideBarCoordenador from "../../../components/SideBarCoordenador";
 import TabelaBancoQuestoes from "../../../components/TabelaBancoQuestoes";
 import api from "../../../api/api";
-import { ClipLoader } from "react-spinners"; // Importando o loader
+import { ClipLoader } from "react-spinners";
 import { useAuth } from "../../../contexts/auth";
 import MainLayout from "../../../components/MainLayout";
 
@@ -16,7 +16,7 @@ export default function AprovadasCoordenador() {
 
   useEffect(() => {
     const fetchQuestoesAprovadas = async () => {
-      if (!idUsuario) return; // Verifica se idUsuario está disponível
+      if (!idUsuario) return;
 
       if (user) {
         try {

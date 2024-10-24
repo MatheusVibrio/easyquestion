@@ -24,8 +24,7 @@ export default function MinhasQuestoes() {
             <h3 className="flex items-center mb-3 font-semibold text-gray-900">
               Minhas questões
             </h3>
-
-            {/* Cabeçalho */}
+            
             <div className="bg-white border border-gray-200 rounded-lg p-8 md:p-8 mb-4">
               <FiltroQuestao aceitaSelecao={false}/>
             </div>

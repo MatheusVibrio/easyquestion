@@ -151,7 +151,6 @@ const handleEditOption = (index: any) => {
   return (
     <div>
       <div className="mt-4">
-      {/* Select para disciplinas */}
       <div className="mt-4">
         <label className="block text-sm font-medium text-gray-900">Disciplina</label>
         <select
@@ -167,8 +166,6 @@ const handleEditOption = (index: any) => {
           ))}
         </select>
       </div>
-
-      {/* Button Radio para dificuldade */}
         <div className="mt-4">
           <label className="block text-sm font-medium text-gray-900 my-2">Dificuldade</label>
           <div className="flex space-x-4">
@@ -213,7 +210,6 @@ const handleEditOption = (index: any) => {
         />
       </div>
 
-      {/* Adicionar opções */}
       <div className="mt-4">
         <label className="block text-sm font-medium text-gray-900">Opções de Resposta</label>
         <input

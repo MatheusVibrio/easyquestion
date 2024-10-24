@@ -57,7 +57,6 @@ export default function Reprovadas() {
               Questões reprovadas
             </h3>
 
-            {/* Tabela com as questões reprovadas */}
             <TabelaBancoQuestoes questoes={questoes} aceitaSelecao={false} reprovadas={true}/>
           </div>
         </div>

@@ -132,11 +132,9 @@ export default function CriacaoDisciplina() {
             </div>
           </div>
 
-          {/* Label de Disciplinas Cadastradas */}
           <h4 className="font-semibold text-gray-900 mb-4">Disciplinas Cadastradas</h4>
-
-          {/* Exibição das disciplinas cadastradas */}
-          <div className="space-y-4">  {/* Espaço entre os cards */}
+          
+          <div className="space-y-4">  
             {disciplinasPorCurso.map((disciplina) => (
               <div key={disciplina.id_disciplina} className="flex items-center justify-between bg-white border border-gray-200 rounded-lg p-4 shadow-md">
                 <h4 className="text-lg font-semibold">{disciplina.descricao}</h4>

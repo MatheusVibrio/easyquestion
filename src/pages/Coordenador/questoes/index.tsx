@@ -127,8 +127,7 @@ export default function QuestoesCoordenador() {
                     {questao.gabarito && (
                       <p className="text-sm text-red-900">Gabarito: {questao.gabarito}</p>
                     )}
-
-                    {/* Se for questão de múltipla escolha, exibir as alternativas */}
+                    
                     {questao.tipo == 1 && (
                       <div className="mb-3">
                         {questao.respostas.map((alternativa: any, index: any) => (
@@ -148,7 +147,6 @@ export default function QuestoesCoordenador() {
                       </div>
                     )}
 
-                    {/* Se for questão dissertativa, exibir as respostas */}
                     {questao.tipo == 2 && (
                       <div className="mb-3">
                         {questao.respostas.map((resposta: any, index: any) => (

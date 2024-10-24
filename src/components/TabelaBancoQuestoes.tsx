@@ -152,8 +152,7 @@ const TabelaBancoQuestoes = ({ onVerClick, questoes, aceitaSelecao, reprovadas, 
           reprovadas={reprovadas}
         />
       ) : null}
-
-      {/* Modal de Confirmação de Exclusão */}
+      
       {isDeleteModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg text-center">

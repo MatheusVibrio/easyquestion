@@ -127,7 +127,6 @@ export default function FiltroQuestao(aceitaSelecao: any){
     <div>
       <form className="flex-column" onSubmit={handleSubmit}>
         <div className="flex justify-between gap-6">
-          {/* Questão */}
           <div className="flex-column w-full">
             <label className="block mb-2 text-sm font-medium text-gray-900">Buscar questão</label>
             <input
@@ -140,7 +139,6 @@ export default function FiltroQuestao(aceitaSelecao: any){
             />
           </div>
 
-          {/* Disciplina */}
           <div className="flex-column w-full">
             <label className="block mb-2 text-sm font-medium text-gray-900">Disciplina</label>
             <select
@@ -157,7 +155,6 @@ export default function FiltroQuestao(aceitaSelecao: any){
         </select>
           </div>
 
-          {/* Dificuldade */}
           <div className="flex-column w-full">
             <label className="block mb-4 text-sm font-medium text-gray-900">Dificuldade</label>
             <div className="flex">

@@ -25,12 +25,11 @@ export default function MinhasQuestoesCoordenador() {
               Minhas questões
             </h3>
 
-            {/* Cabeçalho */}
             <div className="bg-white border border-gray-200 rounded-lg p-8 md:p-8 mb-4">
               <FiltroQuestao aceitaSelecao={false}/>
             </div>
-            {/* Exibe a tabela de questões */}
-            </div>
+            
+          </div>
         </div>
       </div>
     </MainLayout>
