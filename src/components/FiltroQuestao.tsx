@@ -25,7 +25,6 @@ export default function FiltroQuestao(aceitaSelecao: any){
 
     // Filtra as questões após o envio do formulário
     const filtered = questoes.filter(q => {
-
       const matchesQuestao = questao && typeof questao === 'string' && questao.trim() !== '' 
       ? removeAcentos(q.enunciado)?.toUpperCase().trim().includes(removeAcentos(questao).toUpperCase().trim()) 
       : true;
