@@ -35,7 +35,6 @@ export default function AprovadasCoordenador() {
     fetchQuestoesAprovadas();
   }, [idUsuario]);
 
-  // Exibe o loader enquanto os dados ou o idUsuario estão sendo carregados
   if (loading || !idUsuario) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -44,7 +43,6 @@ export default function AprovadasCoordenador() {
     );
   }
 
-  // Exibe a mensagem de erro, se houver
   if (error) {
     return <div>{error}</div>;
   }

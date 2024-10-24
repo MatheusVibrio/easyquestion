@@ -40,10 +40,9 @@ const TabelaBancoQuestoes = ({ onVerClick, questoes, aceitaSelecao, reprovadas, 
       
       toast.success("Questão deletada com sucesso!");
       
-      // Atrasar o reload para que o toast seja exibido
       setTimeout(() => {
         window.location.reload();
-      }, 2000); // 2 segundos de atraso
+      }, 2000);
     } catch (error) {
       console.error("Erro ao deletar questão:", error);
       toast.error("Questão vinculada a uma prova. Não é possível excluir.");

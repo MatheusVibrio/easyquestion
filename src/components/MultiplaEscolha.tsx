@@ -8,7 +8,7 @@ const MultiplaEscolha = ({ userId, keywords, fk_id_curso }: any) => {
   const [fkTipo, setFkTipo] = useState(1);
   const [fkDificuldade, setFkDificuldade] = useState(1);  
   const [fkDisciplina, setFkDisciplina] = useState<any>(1);
-  const [disciplinas, setDisciplinas] = useState<any[]>([]); //  Lista de disciplinas
+  const [disciplinas, setDisciplinas] = useState<any[]>([]);
   const [options, setOptions] = useState<any[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [correctOption, setCorrectOption] = useState(0);
@@ -16,7 +16,6 @@ const MultiplaEscolha = ({ userId, keywords, fk_id_curso }: any) => {
   const token = sessionStorage.getItem('@App:token'); 
   const user = JSON.parse(sessionStorage.getItem('@App:user') || '{}');
 
-  // Função para buscar disciplinas
   useEffect(() => {
     if (user) {
       const fetchDisciplinas = async () => {
@@ -141,7 +140,7 @@ const handleEditOption = (index: any) => {
 
       setTimeout(() => {
         window.location.reload();
-      }, 2000); // 2 segundos de atraso
+      }, 2000);
       
     } catch (error: any) {
       console.error('Erro ao criar a questão:', error.response || error.message);

@@ -11,21 +11,19 @@ export default function ReprovadasCoordenador() {
   const [expandedIds, setExpandedIds] = useState<any>([]);
   const [modalOpen, setModalOpen] = useState<any>(false);
   const [selectedQuestaoId, setSelectedQuestaoId] = useState<any>(null);
-  const { user } = useAuth(); // Pega o id_usuario do usuário logado
+  const { user } = useAuth();
 
-  // Função para buscar as questões reprovadas
   const fetchQuestoesReprovadas = async () => {
     try {
       if (user) {
         const response = await api.get(`/questoes/minhasquestoes/reprovadas/${user.id_usuario}`);
-        setQuestoes(response.data); // Supondo que os dados estejam no response.data
+        setQuestoes(response.data); 
       }
       } catch (error) {
       console.error("Erro ao buscar as questões reprovadas:", error);
     }
   };
 
-  // Chama a função de busca assim que o componente é montado
   useEffect(() => {
     fetchQuestoesReprovadas();
   }, [user]);
@@ -39,7 +37,6 @@ export default function ReprovadasCoordenador() {
   };
 
   const handleAprovar = (id: any) => {
-    // Lógica para aprovar a questão
     setQuestoes(questoes.filter((questao: any) => questao.id !== id));
   };
 
@@ -54,7 +51,6 @@ export default function ReprovadasCoordenador() {
   };
 
   const handleModalSubmit = (comentario: any) => {
-    // Lógica para rejeitar a questão com comentário
     setQuestoes(questoes.filter((questao: any) => questao.id !== selectedQuestaoId));
     handleModalClose();
   };
@@ -72,7 +68,7 @@ export default function ReprovadasCoordenador() {
                   className={`mb-4 p-4 border rounded-lg bg-red-50 cursor-pointer transition-all duration-300 ${
                     expandedIds.includes(questao.id) ? "max-h-screen" : "max-h-24"
                   } overflow-hidd
-        setQuestoes(response.data); // Supondo que os dados estejam no responseen`}
+        setQuestoes(response.data);`}
                   onClick={() => handleExpand(questao.id)}
                 >
                   <div className="flex gap-3 text-xs items-center">

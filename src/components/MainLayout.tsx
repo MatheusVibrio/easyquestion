@@ -22,7 +22,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     }
   }, [isSupervisor]);
 
-  const loading = localSupervisor === null; // Verifica se ainda não carregou o valor de isSupervisor
+  const loading = localSupervisor === null;
 
   return (
     <div className="bg-gray-100 h-screen relative">

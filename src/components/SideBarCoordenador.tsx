@@ -25,9 +25,9 @@ export default function SideBarCoordenador() {
   ];
 
   function handleLogout(event: any) {
-    event.preventDefault(); // Previne a ação padrão do link
-    Logout(); // Chama a função de logout do contexto
-    navigate("/login"); // Redireciona para a página de login
+    event.preventDefault();
+    Logout(); 
+    navigate("/login"); 
   }
 
   return (
@@ -47,7 +47,7 @@ export default function SideBarCoordenador() {
                     ? "text-white bg-blue-500"
                     : "text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 }`}
-                onClick={item.onClick} // Adicione o evento onClick aqui
+                onClick={item.onClick}
               >
                 {item.icon}
                 <span className="ms-3">{item.label}</span>

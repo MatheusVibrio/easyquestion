@@ -9,7 +9,7 @@ import MainLayout from "../../../components/MainLayout";
 
 export default function QuestoesCoordenador() {
   const [questoes, setQuestoes] = useState<any>([]);
-  const [expandedId, setExpandedId] = useState<any>(null); // Agora só um ID será expandido por vez
+  const [expandedId, setExpandedId] = useState<any>(null);
   const [modalOpen, setModalOpen] = useState<any>(false);
   const [selectedQuestaoId, setSelectedQuestaoId] = useState<any>(null);
 
@@ -18,7 +18,6 @@ export default function QuestoesCoordenador() {
 
   const id_curso =user?.fk_id_curso.id_curso;
 
-  // Função para buscar as questões
   const fetchQuestoes = async () => {
     if(user){
       try {
@@ -38,17 +37,14 @@ export default function QuestoesCoordenador() {
     }
   };
 
-  // Chama a função quando o componente monta
   useEffect(() => {
     fetchQuestoes();
   }, []); 
 
   const handleExpand = (id: any) => {
-    // Se a questão já estiver expandida, fecha ela, caso contrário, expande a nova questão
     setExpandedId((prevId: any) => (prevId === id ? null : id));
   };
 
-  // Aprovar questão
   const handleAprovar = async (id: any) => {
     try {
       await api.put(
@@ -69,7 +65,6 @@ export default function QuestoesCoordenador() {
     }
   };
 
-  // Rejeitar questão
   const handleRejeitar = (id: any) => {
     setSelectedQuestaoId(id);
     setModalOpen(true);

@@ -4,7 +4,7 @@ import NavBar from "../../components/NavBar";
 import SideBar from "../../components/SideBar";
 import TabelaBancoQuestoes from "../../components/TabelaBancoQuestoes";
 import { useAuth } from "../../contexts/auth";
-import { ClipLoader } from "react-spinners"; // Importa o loader
+import { ClipLoader } from "react-spinners";
 import MainLayout from "../../components/MainLayout";
 
 export default function Aprovadas() {
@@ -17,7 +17,7 @@ export default function Aprovadas() {
   useEffect(() => {
     const fetchQuestoesAprovadas = async () => {
       
-      if (!user?.id_usuario) return; // Aguarda até que o ID do usuário esteja disponível
+      if (!user?.id_usuario) return;
 
       if (user) {
         try {
@@ -35,9 +35,8 @@ export default function Aprovadas() {
     };
 
     fetchQuestoesAprovadas();
-  }, [user?.id_usuario]); // Recarrega a função apenas quando user.id_usuario estiver disponível
+  }, [user?.id_usuario]); 
 
-  // Exibe o loader enquanto o ID do usuário ou as questões estão carregando
   if (loading || !user?.id_usuario) {
     return (
       <div className="flex items-center justify-center h-screen">

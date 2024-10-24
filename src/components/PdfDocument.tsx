@@ -1,8 +1,6 @@
-// src/components/PdfDocument.tsx
 import React from 'react';
 import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 
-// Definindo a interface para as props
 interface Resposta {
   descricao: string;
   fg_correta: string;
@@ -27,7 +25,6 @@ const capitalizeFirstLetter = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
 
-// Estilos do PDF
 const styles = StyleSheet.create({
   dissertativaLine: {
     marginTop: 20,
@@ -75,7 +72,6 @@ const styles = StyleSheet.create({
   },
 });
 
-// Componente do PDF
 const PdfDocument: React.FC<{ provaDetalhes: ProvaDetalhes }> = ({ provaDetalhes }) => (
   <Document>
     <Page size="A4" style={styles.page}>

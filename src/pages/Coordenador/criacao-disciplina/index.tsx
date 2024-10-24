@@ -3,9 +3,8 @@ import { useLocation } from "react-router-dom";
 import MainLayout from "../../../components/MainLayout";
 import api from "../../../api/api";
 import { toast } from "react-toastify";
-import { FaTrash } from 'react-icons/fa'; // Importa ícone de lixeira
+import { FaTrash } from 'react-icons/fa'; 
 
-// Definindo o tipo de disciplina
 interface Disciplina {
   id_disciplina: number;
   descricao: string;
@@ -19,10 +18,9 @@ export default function CriacaoDisciplina() {
   const [nomeDisciplina, setNomeDisciplina] = useState("");
   const [cursos, setCursos] = useState([]);
   const [fk_id_curso, setFkIdCurso] = useState<number | null>(null);
-  const [disciplinasPorCurso, setDisciplinasPorCurso] = useState<Disciplina[]>([]); // Definindo o tipo correto
+  const [disciplinasPorCurso, setDisciplinasPorCurso] = useState<Disciplina[]>([]); 
   const user = JSON.parse(sessionStorage.getItem('@App:user') || '{}');
 
-  // Fetch de todas as disciplinas (para coordenador/supervisor)
   useEffect(() => {
     const fetchCursos = async () => {
       try {
@@ -39,12 +37,11 @@ export default function CriacaoDisciplina() {
     fetchCursos();
   }, [user?.id_usuario]);
 
-  // Fetch de disciplinas por curso
   useEffect(() => {
     const fetchDisciplinasPorCurso = async () => {
       if (fk_id_curso) {
         try {
-          const response = await api.get<Disciplina[]>(`/disciplina/${fk_id_curso}`); // Garantindo o tipo no fetch
+          const response = await api.get<Disciplina[]>(`/disciplina/${fk_id_curso}`);
           setDisciplinasPorCurso(response.data);
         } catch (error) {
           console.error("Erro ao carregar disciplinas por curso:", error);
@@ -54,7 +51,6 @@ export default function CriacaoDisciplina() {
     fetchDisciplinasPorCurso();
   }, [fk_id_curso]);
 
-  // Handler para cadastrar disciplina
   const handleCadastrarDisciplina = async () => {
     try {
       const response = await api.post("/disciplina", {
@@ -63,7 +59,7 @@ export default function CriacaoDisciplina() {
       });
       toast.success("Disciplina criada com sucesso!");
       setNomeDisciplina("");
-      const fetchDisciplinas = await api.get<Disciplina[]>(`/disciplina/${fk_id_curso}`); // Tipando corretamente
+      const fetchDisciplinas = await api.get<Disciplina[]>(`/disciplina/${fk_id_curso}`); 
       setDisciplinasPorCurso(fetchDisciplinas.data);
     } catch (error) {
       console.error("Erro ao cadastrar disciplina:", error);
@@ -71,12 +67,10 @@ export default function CriacaoDisciplina() {
     }
   };
 
-  // Handler para excluir disciplina
   const handleExcluirDisciplina = async (id_disciplina: number) => {
     try {
       await api.delete(`/disciplina/${id_disciplina}`);
       toast.success("Disciplina excluída com sucesso!");
-      // Atualiza a lista após a exclusão
       setDisciplinasPorCurso(disciplinasPorCurso.filter(disc => disc.id_disciplina !== id_disciplina));
     } catch (error) {
       console.error("Erro ao excluir disciplina:", error);

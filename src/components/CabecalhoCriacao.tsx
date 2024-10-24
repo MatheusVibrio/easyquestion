@@ -4,11 +4,11 @@ import MultiplaEscolha from "./MultiplaEscolha";
 import { useAuth } from "../contexts/auth";
 
 export default function CabecalhoCriacao({ correcao }: any) {
-  const { token } = useAuth();  // Pegando o usuário logado do contexto
+  const { token } = useAuth(); 
   const user = JSON.parse(sessionStorage.getItem('@App:user') || '{}');
   const [keywords, setKeywords] = useState<any>([]);
   const [inputValue, setInputValue] = useState<any>("");
-  const [tipoQuestao, setTipoQuestao] = useState<any>(""); // Tipo de questão
+  const [tipoQuestao, setTipoQuestao] = useState<any>("");
 
   const handleInputChange = (event: any) => {
     setInputValue(event.target.value);

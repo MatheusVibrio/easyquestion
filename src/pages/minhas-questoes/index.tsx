@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import FiltroQuestao from "../../components/FiltroQuestao";
 import { useAuth } from "../../contexts/auth";
-import { ClipLoader } from "react-spinners"; // Importa o loader
+import { ClipLoader } from "react-spinners";
 import MainLayout from "../../components/MainLayout";
 
 export default function MinhasQuestoes() {
   const { user } = useAuth();
   const userId = user?.id_usuario;
   
-  // Exibe o loader enquanto o userId ainda não foi carregado ou as questões estão sendo buscadas
   if (!userId) {
     return (
       <div className="flex items-center justify-center h-screen">

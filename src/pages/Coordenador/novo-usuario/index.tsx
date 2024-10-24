@@ -16,7 +16,6 @@ export default function CriarNovoUsuario() {
   const [cursos, setCursos] = useState<any>([]);
   const [disciplinas, setDisciplinas] = useState<any[]>([]); 
 
-  // Fetch dos cursos na inicialização do componente
   useEffect(() => {
     const fetchCursos = async () => {
       try {
@@ -29,7 +28,6 @@ export default function CriarNovoUsuario() {
     fetchCursos();
   }, []);
 
-  // Fetch das disciplinas quando um curso for selecionado
   useEffect(() => {
     if (fk_id_curso !== null) {
       const fetchDisciplinas = async () => {
@@ -50,7 +48,6 @@ export default function CriarNovoUsuario() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
   
-    // Verificação do domínio do e-mail
     if (!email.endsWith('@prof.fae.br')) {
       toast.error("Domínio não aceito.");
       return;
@@ -68,7 +65,6 @@ export default function CriarNovoUsuario() {
   
       toast.success("Usuário criado com sucesso.");
 
-      // Limpar campos do formulário
       setNome("");
       setEmail("");
       setTelefone("");

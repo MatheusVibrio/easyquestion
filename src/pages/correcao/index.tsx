@@ -5,7 +5,7 @@ import SideBar from "../../components/SideBar";
 import TabelaBancoQuestoes from "../../components/TabelaBancoQuestoes";
 import api from "../../api/api";
 import { useAuth } from "../../contexts/auth";
-import { ClipLoader } from "react-spinners"; // Importa o loader
+import { ClipLoader } from "react-spinners"; 
 import MainLayout from "../../components/MainLayout";
 
 export default function Reprovadas() {
@@ -18,7 +18,7 @@ export default function Reprovadas() {
 
   useEffect(() => {
     const fetchQuestoesReprovadas = async () => {
-      if (!id_usuario) return; // Aguarda até que o ID do usuário esteja disponível
+      if (!id_usuario) return;
 
       if (user) {
         try {
@@ -27,7 +27,7 @@ export default function Reprovadas() {
         } catch (err) {
           setError("Erro ao carregar as questões reprovadas.");
         } finally {
-          setLoading(false); // Garante que o loading seja setado como false no final
+          setLoading(false); 
         }
       }
       

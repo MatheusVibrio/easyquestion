@@ -24,7 +24,7 @@ const CriarProva = () => {
   });
   
   const [disciplinas, setDisciplinas] = useState([]);
-  const [selectedDisciplina, setSelectedDisciplina] = useState<string>(""); // Inicialize como string vazia
+  const [selectedDisciplina, setSelectedDisciplina] = useState<string>("");
   const [descricao, setDescricao] = useState("");
 
   const openModal = () => {
@@ -64,23 +64,20 @@ const CriarProva = () => {
     }
     
     try {
-      // 1. Cadastrar a prova
       const provaResponse = await api.post("/provas", {
         descricao: descricao,
-        fk_id_disciplina: selectedDisciplina, // ID da disciplina selecionada
-        fk_id_usuario: user.id_usuario // ID do usuário logado
+        fk_id_disciplina: selectedDisciplina,
+        fk_id_usuario: user.id_usuario 
       });
 
-      const provaId = provaResponse.data.id_prova; // Assumindo que o ID da prova vem nessa propriedade
+      const provaId = provaResponse.data.id_prova;
 
-      // 2. Preparar dados das questões selecionadas
       const questoesParaCadastrar = selectedQuestoes.map((questao: any, index: number) => ({
         ordem: index + 1,
         fk_id_questao: questao.id_questao,
         fk_id_prova: provaId
       }));
 
-      // 3. Cadastrar as questões na prova
       await api.post("/provas/questoes", questoesParaCadastrar);
 
       localStorage.removeItem("selectedQuestoes");
@@ -89,21 +86,18 @@ const CriarProva = () => {
 
     } catch (error) {
       console.error("Erro ao cadastrar prova ou questões:", error);
-      // Adicionar tratamento de erro, se necessário
     }
   };
 
   useEffect(() => {
-    // Fetch disciplinas quando o componente é montado
     const fetchDisciplinas = async () => {
       try {
-        const response = await api.get(`/disciplina/${user?.fk_id_curso.id_curso}`); // Ajuste a rota conforme necessário
+        const response = await api.get(`/disciplina/${user?.fk_id_curso.id_curso}`);
         const disciplinasData = response.data;
         setDisciplinas(disciplinasData);
         
-        // Inicializa selectedDisciplina com a primeira disciplina se existirem dados
         if (disciplinasData.length > 0) {
-          setSelectedDisciplina(disciplinasData[0].id_disciplina); // Usando o id da primeira disciplina
+          setSelectedDisciplina(disciplinasData[0].id_disciplina); 
         }
       } catch (error) {
         console.error("Erro ao buscar disciplinas:", error);
@@ -111,7 +105,7 @@ const CriarProva = () => {
     };
 
     fetchDisciplinas();
-  }, [user?.fk_id_curso.id_curso]); // Certifique-se de passar a dependência correta
+  }, [user?.fk_id_curso.id_curso]);
 
 
   return (
@@ -267,7 +261,7 @@ const CriarProva = () => {
                             type="button"
                             onClick={() => {
                               closeDisciplinaModal();
-                              handleCriarQuestao(new Event('submit')); // Passar evento para a função handleCriarQuestao
+                              handleCriarQuestao(new Event('submit'));
                             }}
                             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center my-2"
                           >

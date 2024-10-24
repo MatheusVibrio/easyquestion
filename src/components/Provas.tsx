@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/api";
 import { useAuth } from "../contexts/auth";
-import { toast } from "react-toastify"; // Para mensagens de sucesso/erro
+import { toast } from "react-toastify"; 
 import ReactPDF from '@react-pdf/renderer';
 import PdfDocument from "./PdfDocument";
 
-// Definindo o tipo para as provas e questões
 interface Resposta {
   descricao: string;
   fg_correta: string;
@@ -36,8 +35,8 @@ interface Prova {
 
 export default function Provas() {
   const [provas, setProvas] = useState<Prova[]>([]);
-  const [provaDetalhes, setProvaDetalhes] = useState<ProvaDetalhes | null>(null); // Estado para os detalhes da prova
-  const [isModalOpen, setIsModalOpen] = useState(false); // Controle de abertura do modal
+  const [provaDetalhes, setProvaDetalhes] = useState<ProvaDetalhes | null>(null); 
+  const [isModalOpen, setIsModalOpen] = useState(false); 
   const navigate = useNavigate();
   const { user } = useAuth();
 
@@ -53,8 +52,6 @@ export default function Provas() {
   const handleGeraPdf = async (id_prova: number) => {
   try {
     const response = await api.get(`/provas/det/${id_prova}`);
-    //setProvaDetalhes(response.data);
-
     const provaDetalhes = response.data;
 
     if (provaDetalhes) {
@@ -87,7 +84,7 @@ export default function Provas() {
     try {
       const response = await api.get(`/provas/det/${id_prova}`);
       setProvaDetalhes(response.data);
-      setIsModalOpen(true); // Abre o modal após carregar os dados
+      setIsModalOpen(true);
     } catch (error) {
       console.error("Erro ao buscar detalhes da prova:", error);
     }
@@ -111,12 +108,12 @@ export default function Provas() {
   };
 
   const handleVerProva = (id_prova: number) => {
-    fetchProvaDetalhes(id_prova); // Buscar os detalhes da prova ao clicar
+    fetchProvaDetalhes(id_prova); 
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setProvaDetalhes(null); // Limpa os detalhes ao fechar o modal
+    setProvaDetalhes(null); 
   };
 
   return (

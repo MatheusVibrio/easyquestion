@@ -23,9 +23,8 @@ const LoginForm: React.FC<{ title: string; description: string }> = (props) => {
   
       Cookies.set('id_usuario', response.user.id_usuario.toString()); 
       Cookies.set('token', response.token);
-      Cookies.set('fk_id_tipo_descricao', response.isSupervisor ? 'Coordenador' : 'Professor'); // Ajuste conforme o tipo real que você espera.
+      Cookies.set('fk_id_tipo_descricao', response.isSupervisor ? 'Coordenador' : 'Professor');
   
-      // Verifica o tipo de usuário e redireciona de acordo
       if (response.isSupervisor) {
         navigate(`/coordenador/questoes`);
       } else {

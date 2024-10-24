@@ -71,7 +71,7 @@ export default function CampoAberto({ token, userId, keywords, fk_id_curso }: an
 
       setTimeout(() => {
         window.location.reload();
-      }, 2000); // 2 segundos de atraso
+      }, 2000); 
 
     } catch (error) {
       console.error("Erro ao cadastrar questão:", error);

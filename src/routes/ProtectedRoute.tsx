@@ -5,7 +5,7 @@ import { useAuth } from "../contexts/auth";
 
 interface ProtectedRouteProps {
   allowedRoles: string[]; // Tipos permitidos: "Coordenador", "Professor", etc.
-  redirectTo: string; // Rota de redirecionamento
+  redirectTo: string; 
 }
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, redirectTo }) => {
   const userRole = Cookies.get("fk_id_tipo_descricao");
@@ -16,12 +16,10 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, redirectT
     //return <Navigate to="/login" />;
   //}
 
-  // Verifica se o usuário está logado e se o papel está entre os permitidos
   if (userRole && allowedRoles.includes(userRole)) {
     return <Outlet />;
   }
 
-  // Se o usuário está logado e tenta acessar a página de login, redireciona para a página inicial
   if (redirectTo === "/login" && userRole) {
     return <Navigate to="/" />;
   }

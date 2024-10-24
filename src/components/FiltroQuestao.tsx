@@ -23,7 +23,6 @@ export default function FiltroQuestao(aceitaSelecao: any){
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    // Filtra as questões após o envio do formulário
     const filtered = questoes.filter(q => {
       const matchesQuestao = questao && typeof questao === 'string' && questao.trim() !== '' 
       ? removeAcentos(q.enunciado)?.toUpperCase().trim().includes(removeAcentos(questao).toUpperCase().trim()) 
@@ -50,32 +49,32 @@ export default function FiltroQuestao(aceitaSelecao: any){
 
   useEffect(() => {
     const fetchQuestoes = async () => {
-      if (!userId) return; // Garante que o userId existe
+      if (!userId) return;
 
       try {
         const response = await api.get(`/questoes/minhasquestoes/${userId}`);
         setQuestoes(response.data);
-        setFilteredQuestoes(response.data); // Inicializa os dados filtrados com todas as questões
+        setFilteredQuestoes(response.data); 
       } catch (error) {
         console.error("Erro ao carregar questões:", error);
         toast.error("Erro ao carregar as questões.");
       } finally {
-        setLoading(false); // Finaliza o estado de carregamento
+        setLoading(false); 
       }
     };
 
     const fetchQuestoesAprovadas = async () => {
-      if (!userId) return; // Garante que o userId existe
+      if (!userId) return; 
 
       try {
         const response = await api.get(`/questoes/minhasquestoes/aprovadas/${userId}`);
         setQuestoes(response.data);
-        setFilteredQuestoes(response.data); // Inicializa os dados filtrados com todas as questões
+        setFilteredQuestoes(response.data);
       } catch (error) {
         console.error("Erro ao carregar questões:", error);
         toast.error("Erro ao carregar as questões.");
       } finally {
-        setLoading(false); // Finaliza o estado de carregamento
+        setLoading(false);
       }
     };
 

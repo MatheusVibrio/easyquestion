@@ -82,7 +82,7 @@ export const AuthProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
     setUser(null);
     setToken(null);
     setIsSupervisor(null);
-    api.defaults.headers.Authorization = ''; // Limpa o header de Authorization
+    api.defaults.headers.Authorization = '';
     sessionStorage.removeItem('@App:user');
     sessionStorage.removeItem('@App:token');
     sessionStorage.removeItem('@App:isSupervisor');
