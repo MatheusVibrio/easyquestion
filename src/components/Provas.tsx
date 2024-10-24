@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import api from "../api/api";
 import { useAuth } from "../contexts/auth";
 import { toast } from "react-toastify"; // Para mensagens de sucesso/erro
+import ReactPDF from '@react-pdf/renderer';
+import PdfDocument from "./PdfDocument";
 
 // Definindo o tipo para as provas e questões
 interface Resposta {
@@ -47,6 +49,39 @@ export default function Provas() {
       console.error("Erro ao buscar provas:", error);
     }
   };
+
+  const handleGeraPdf = async (id_prova: number) => {
+  try {
+    const response = await api.get(`/provas/det/${id_prova}`);
+    //setProvaDetalhes(response.data);
+
+    const provaDetalhes = response.data;
+
+    if (provaDetalhes) {
+      // Gera o PDF em memória
+      const blob = await ReactPDF.pdf(<PdfDocument provaDetalhes={provaDetalhes} />).toBlob();
+
+      // Cria uma URL de download
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${provaDetalhes.prova || 'prova'}.pdf`;
+
+      // Inicia o download
+      document.body.appendChild(link);
+      link.click();
+
+      // Limpa o link e a URL temporária
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } else {
+      toast.error("Erro ao gerar PDF: Detalhes da prova não encontrados");
+    }
+  } catch (error) {
+    console.error("Erro ao buscar detalhes da prova:", error);
+    toast.error("Erro ao gerar PDF");
+  }
+};
 
   const fetchProvaDetalhes = async (id_prova: number) => {
     try {
@@ -111,14 +146,8 @@ export default function Provas() {
           <tbody>
             {provas.length > 0 ? (
               provas.map((prova: Prova, index: number) => (
-                <tr
-                  key={index}
-                  className="odd:bg-white even:bg-gray-50 border-b"
-                >
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                  >
+                <tr key={index} className="odd:bg-white even:bg-gray-50 border-b">
+                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                     {prova.descricao}
                   </th>
                   <td className="px-6 py-4">{prova.disciplina}</td>
@@ -132,7 +161,6 @@ export default function Provas() {
                     >
                       Ver
                     </a>
-                    <a href="#" className="font-medium text-blue-600 hover:underline">Gerar</a>
                     <a
                       href="#"
                       onClick={() => handleExcluirProva(prova.id_prova)}
@@ -140,6 +168,12 @@ export default function Provas() {
                     >
                       Excluir
                     </a>
+                    <button
+                      onClick={() => handleGeraPdf(prova.id_prova)} 
+                      className="font-medium text-blue-600 hover:underline"
+                    >
+                      Gerar PDF
+                    </button>
                   </td>
                 </tr>
               ))
@@ -228,8 +262,6 @@ export default function Provas() {
           </div>
         </div>
       )}
-
-
     </div>
   );
 }
