@@ -96,7 +96,7 @@ export default function CabecalhoCriacao({ correcao }: any) {
               ))}
             </div>
           </div>
-
+          
           {tipoQuestao === "DISS" ? (
             <CampoAberto 
               token={token} 
