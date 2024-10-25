@@ -37,7 +37,7 @@ export default function CampoAberto({ token, userId, keywords, fk_id_curso }: an
 
     const questaoData = {
       enunciado: enunciado,
-      fk_tipo: 2,
+      fk_tipo: 1,
       fk_id_usuario: userId,
       fk_id_dificuldade: fkDificuldade,
       fk_id_disciplina: fkDisciplina,

@@ -95,7 +95,7 @@ const handleEditOption = (index: any) => {
 
     const formData = {
       enunciado,
-      fk_tipo: fkTipo,
+      fk_tipo: 2,
       fk_id_usuario: userId,
       fk_id_dificuldade: fkDificuldade,
       fk_id_disciplina: fkDisciplina,
