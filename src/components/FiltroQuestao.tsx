@@ -20,6 +20,14 @@ export default function FiltroQuestao(aceitaSelecao: any){
   const removeAcentos = (str: string) => 
   str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
+  const handleClear = () => {
+  setQuestao('');        
+  setDisciplina('');      
+  setCurso('');           
+  setDificuldade('');     
+  setFilteredQuestoes(questoes); // Exibe todas as questões
+  };
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -87,9 +95,6 @@ export default function FiltroQuestao(aceitaSelecao: any){
       try {
         const response = await api.get(`/disciplina/${user?.fk_id_curso.id_curso}`);
         setDisciplinas(response.data);
-        if (response.data.length > 0) {
-            setDisciplina(response.data[0].id_disciplina); 
-          }
       } catch (error) {
         console.error("Erro ao carregar disciplinas:", error);
         toast.error("Erro ao carregar disciplinas.");
@@ -142,17 +147,17 @@ export default function FiltroQuestao(aceitaSelecao: any){
           <div className="flex-column w-full">
             <label className="block mb-2 text-sm font-medium text-gray-900">Disciplina</label>
             <select
-          value={disciplina}
-          onChange={(e) => setDisciplina(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded mb-3 text-xs"
-          required
-        >
-          {disciplinas.map((disciplina: any) => (
-            <option key={disciplina.id_disciplina} value={disciplina.id_disciplina}>
-              {disciplina.descricao}
-            </option>
-          ))}
-        </select>
+              value={disciplina}
+              onChange={(e) => setDisciplina(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded mb-3 text-xs"
+            >
+              <option value="">Selecione a disciplina</option> 
+              {disciplinas.map((disciplina: any) => (
+                <option key={disciplina.id_disciplina} value={disciplina.id_disciplina}>
+                  {disciplina.descricao}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="flex-column w-full">
@@ -164,6 +169,7 @@ export default function FiltroQuestao(aceitaSelecao: any){
                   type="radio"
                   value="fácil"
                   name="dificuldade"
+                  checked={dificuldade === 'fácil'}
                   onChange={handleDificuldadeChange}
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
                 />
@@ -175,6 +181,7 @@ export default function FiltroQuestao(aceitaSelecao: any){
                   type="radio"
                   value="médio"
                   name="dificuldade"
+                  checked={dificuldade === 'médio'}
                   onChange={handleDificuldadeChange}
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
                 />
@@ -186,6 +193,7 @@ export default function FiltroQuestao(aceitaSelecao: any){
                   type="radio"
                   value="difícil"
                   name="dificuldade"
+                  checked={dificuldade === 'difícil'}
                   onChange={handleDificuldadeChange}
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
                 />
@@ -195,12 +203,19 @@ export default function FiltroQuestao(aceitaSelecao: any){
           </div>
         </div>
 
-        <div className="flex justify-end">
+        <div className="flex justify-end space-x-2">
           <button
             type="submit"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center my-1"
           >
             Buscar
+          </button>
+          <button
+            type="button"
+            onClick={handleClear}
+            className="text-white bg-gray-500 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center my-1"
+          >
+            Limpar
           </button>
         </div>
       </form>
