@@ -7,6 +7,7 @@ import {
   FiCheckCircle,
   FiSettings,
   FiPlusCircle,
+  FiClipboard ,
 } from "react-icons/fi";
 import { useAuth } from "../contexts/auth";
 
@@ -16,7 +17,7 @@ export default function SideBarCoordenador() {
   const { Logout } = useAuth();
 
   const menuItems = [
-    { href: "/coordenador/questoes", icon: <FiHome />, label: "Questões" },
+    { href: "/coordenador/questoes", icon: <FiClipboard  />, label: "Auditoria" },
     { href: "/coordenador/minhas-questoes", icon: <FiHome />, label: "Minhas Questões" },
     { href: "/coordenador/criacao", icon: <FiPlusCircle />, label: "Criação" },
     { href: "/coordenador/criar-usuario", icon: <FiCheckCircle />, label: "Criar novo usuário" },

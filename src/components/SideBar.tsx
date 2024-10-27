@@ -7,6 +7,8 @@ import {
   FiLogOut,
   FiCheckCircle,
   FiFilePlus,
+  FiList ,
+  FiXSquare ,
 } from "react-icons/fi";
 import { useAuth } from '../contexts/auth';
 
@@ -18,8 +20,8 @@ export default function SideBar() {
   const menuItems = [
     { href: "/", icon: <FiHome />, label: "Home" },
     { href: "/criacao", icon: <FiPlusCircle />, label: "Criação" },
-    { href: "/minhas-questoes", icon: <FiFilePlus />, label: "Minhas questões" },
-    { href: "/questoes-reprovadas", icon: <FiFileText />, label: "Reprovadas" },
+    { href: "/minhas-questoes", icon: <FiList  />, label: "Minhas questões" },
+    { href: "/questoes-reprovadas", icon: <FiXSquare  />, label: "Reprovadas" },
     { href: "/questoes-aprovadas", icon: <FiCheckCircle />, label: "Aprovadas" },
     { href: "/provas", icon: <FiFilePlus />, label: "Prova" },
     { href: "/login", icon: <FiLogOut />, label: "Logout", onClick: handleLogout },

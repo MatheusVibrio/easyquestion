@@ -14,7 +14,12 @@ export default function CriarNovoUsuario() {
   const [fk_id_curso, setFkIdCurso] = useState<number | null>(null);
   const [fk_id_disciplina, setFkIdDisciplina] = useState<number | null>(null);
   const [cursos, setCursos] = useState<any>([]);
-  const [disciplinas, setDisciplinas] = useState<any[]>([]); 
+  const [disciplinas, setDisciplinas] = useState<any[]>([]);
+  
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formattedPhone = formatPhone(e.target.value);
+    setTelefone(formattedPhone);
+  };
 
   useEffect(() => {
     const fetchCursos = async () => {
@@ -52,6 +57,11 @@ export default function CriarNovoUsuario() {
       toast.error("Domínio não aceito.");
       return;
     }
+
+    if (!isValidPhone(telefone)) {
+      toast.error("Número de telefone inválido. Formato correto: 99 99999-9999");
+      return;  
+    }
   
     try {
       const response = await api.post("/users", {
@@ -72,11 +82,24 @@ export default function CriarNovoUsuario() {
       setFkIdTipo(1); 
       setFkIdCurso(null);
     } catch (error) {
-      toast.error("Erro ao criar usuário.");
+      toast.error("Usuário já cadastrado");
       console.error("Erro ao criar usuário:", error);
     }
   };
-  
+
+  const formatPhone = (value: string): string => {
+    if (!value) return value;
+    return value
+      .replace(/\D/g, "") 
+      .replace(/(\d{2})(\d{5})(\d{4})/, "$1 $2-$3") 
+      .substring(0, 13);
+  };
+
+  const isValidPhone = (phone: string): boolean => {
+    const phonePattern = /^(\d{2})\s(\d{5})-(\d{4})$/;
+    return phonePattern.test(phone);
+  };
+    
 
   return (
     <MainLayout>
@@ -106,7 +129,7 @@ export default function CriarNovoUsuario() {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="19 99999-9999"
                     value={telefone}
-                    onChange={(e) => setTelefone(e.target.value)}
+                    onChange={handlePhoneChange}
                     required
                   />
                 </div>
