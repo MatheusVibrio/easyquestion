@@ -150,7 +150,10 @@ export default function QuestoesCoordenador() {
                     {questao.tipo == 2 && (
                       <div className="mb-3">
                         {questao.respostas.map((resposta: any, index: any) => (
-                          <p key={index} className="text-gray-900 text-sm">
+                          <p
+                            key={index}
+                            className={`text-sm ${resposta.correta ? "text-green-700 font-bold" : "text-gray-900"}`}
+                          >
                             <strong>Resposta:</strong> {resposta.descricao}
                           </p>
                         ))}
