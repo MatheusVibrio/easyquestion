@@ -47,7 +47,7 @@ const ModalDetalhesQuestao = ({ selectedQuestao, setSelectedQuestao, reprovadas 
   );
 
   const renderContent = () => (
-    selectedQuestao.tipo == 2 ? renderDiscursiva() : renderMultiplaEscolha()
+    selectedQuestao.tipo == 1 ? renderDiscursiva() : renderMultiplaEscolha()
   );
 
   return (
