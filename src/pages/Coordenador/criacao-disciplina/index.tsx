@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import MainLayout from "../../../components/MainLayout";
 import api from "../../../api/api";
 import { toast } from "react-toastify";
-import { FaTrash } from 'react-icons/fa'; 
+import { FaTrash, FaPencilAlt } from 'react-icons/fa';
 
 interface Disciplina {
   id_disciplina: number;
@@ -18,7 +18,9 @@ export default function CriacaoDisciplina() {
   const [nomeDisciplina, setNomeDisciplina] = useState("");
   const [cursos, setCursos] = useState([]);
   const [fk_id_curso, setFkIdCurso] = useState<number | null>(null);
-  const [disciplinasPorCurso, setDisciplinasPorCurso] = useState<Disciplina[]>([]); 
+  const [disciplinasPorCurso, setDisciplinasPorCurso] = useState<Disciplina[]>([]);
+  const [disciplinaEditando, setDisciplinaEditando] = useState<Disciplina | null>(null);
+  const [descricaoTemp, setDescricaoTemp] = useState("");
   const user = JSON.parse(sessionStorage.getItem('@App:user') || '{}');
 
   useEffect(() => {
@@ -53,13 +55,13 @@ export default function CriacaoDisciplina() {
 
   const handleCadastrarDisciplina = async () => {
     try {
-      const response = await api.post("/disciplina", {
+      await api.post("/disciplina", {
         descricao: nomeDisciplina,
         fk_id_curso: fk_id_curso,
       });
       toast.success("Disciplina criada com sucesso!");
       setNomeDisciplina("");
-      const fetchDisciplinas = await api.get<Disciplina[]>(`/disciplina/${fk_id_curso}`); 
+      const fetchDisciplinas = await api.get<Disciplina[]>(`/disciplina/${fk_id_curso}`);
       setDisciplinasPorCurso(fetchDisciplinas.data);
     } catch (error) {
       console.error("Erro ao cadastrar disciplina:", error);
@@ -74,7 +76,40 @@ export default function CriacaoDisciplina() {
       setDisciplinasPorCurso(disciplinasPorCurso.filter(disc => disc.id_disciplina !== id_disciplina));
     } catch (error) {
       console.error("Erro ao excluir disciplina:", error);
-      toast.error("Erro ao excluir disciplina");
+      toast.error("Disciplina já inserida em uma questão");
+    }
+  };
+
+  const handleEditarDisciplina = (disciplina: Disciplina) => {
+    setDisciplinaEditando(disciplina);
+    setDescricaoTemp(disciplina.descricao);
+  };
+
+  const handleSalvarEdicao = async () => {
+    if (disciplinaEditando) {
+      try {
+        if (!descricaoTemp){
+          toast.error("Necessário informar a descrição da disciplina")
+          return
+        }
+        await api.put("/disciplina", {
+          id_disciplina: disciplinaEditando.id_disciplina,
+          descricao: descricaoTemp,
+          fk_id_curso: fk_id_curso,
+        });
+        toast.success("Disciplina atualizada com sucesso!");
+        setDisciplinasPorCurso((prev) =>
+          prev.map((disc) =>
+            disc.id_disciplina === disciplinaEditando.id_disciplina
+              ? { ...disc, descricao: descricaoTemp }
+              : disc
+          )
+        );
+        setDisciplinaEditando(null);
+      } catch (error) {
+        console.error("Erro ao atualizar disciplina:", error);
+        toast.error("Erro ao atualizar disciplina");
+      }
     }
   };
 
@@ -87,10 +122,7 @@ export default function CriacaoDisciplina() {
           {/* Formulário de Cadastro */}
           <div className="mb-4">
             <div className="bg-white border border-gray-200 rounded-lg p-8 md:p-8 mb-4">
-              <label
-                htmlFor="curso"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="curso" className="block text-sm font-medium text-gray-700">
                 Selecione o Curso
               </label>
               <select
@@ -108,10 +140,7 @@ export default function CriacaoDisciplina() {
                 ))}
               </select>
               <div className="my-4">
-                <label
-                  htmlFor="disciplina"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="disciplina" className="block text-sm font-medium text-gray-700">
                   Nome da Disciplina
                 </label>
                 <input
@@ -133,20 +162,57 @@ export default function CriacaoDisciplina() {
           </div>
 
           <h4 className="font-semibold text-gray-900 mb-4">Disciplinas Cadastradas</h4>
-          
-          <div className="space-y-4">  
+
+          <div className="space-y-4">
             {disciplinasPorCurso.map((disciplina) => (
               <div key={disciplina.id_disciplina} className="flex items-center justify-between bg-white border border-gray-200 rounded-lg p-4 shadow-md">
                 <h4 className="text-lg font-semibold">{disciplina.descricao}</h4>
-                <button
-                  onClick={() => handleExcluirDisciplina(disciplina.id_disciplina)}
-                  className="text-red-500 hover:text-red-700"
-                >
-                  <FaTrash size={18} />
-                </button>
+                <div className="flex space-x-4">
+                  <button
+                    onClick={() => handleEditarDisciplina(disciplina)}
+                    className="text-blue-500 hover:text-blue-700"
+                  >
+                    <FaPencilAlt size={18} />
+                  </button>
+                  <button
+                    onClick={() => handleExcluirDisciplina(disciplina.id_disciplina)}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    <FaTrash size={18} />
+                  </button>
+                </div>
               </div>
             ))}
           </div>
+
+          {disciplinaEditando && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+              <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+                <h2 className="text-xl font-semibold mb-4">Editar Disciplina</h2>
+                <input
+                  type="text"
+                  value={descricaoTemp}
+                  onChange={(e) => setDescricaoTemp(e.target.value)}
+                  className="w-full border border-gray-300 rounded-lg p-2 mb-4"
+                  placeholder="Descrição da disciplina"
+                />
+                <div className="flex justify-end space-x-4">
+                  <button
+                    onClick={() => setDisciplinaEditando(null)}
+                    className="text-gray-500 hover:text-gray-700"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    onClick={handleSalvarEdicao}
+                    className="text-white bg-blue-500 hover:bg-blue-600 rounded-lg px-4 py-2"
+                  >
+                    Salvar
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </MainLayout>
