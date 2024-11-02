@@ -75,7 +75,7 @@ export default function CabecalhoCriacao({ correcao, tipo }: any) {
                 onChange={handleTipoQuestaoChange}
               >
                 <option value="ME">Múltipla escolha</option>
-                <option value="DISS">Dissertativa</option>
+                <option value="DISS">Discursiva</option>
               </select>
             </div>
           }
