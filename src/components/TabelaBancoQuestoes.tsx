@@ -90,7 +90,7 @@ const TabelaBancoQuestoes = ({ onVerClick, questoes, aceitaSelecao, reprovadas, 
               <tr
                 key={questao.id_questao}
                 className={`cursor-pointer border-b-2 ${((aceitaSelecao.aceitaSelecao == true) && selectedQuestoes.some(q => q.id_questao === questao.id_questao)) ? "border-blue-500 bg-blue-100" : "border-transparent"}
-                  ${questao.id_questao % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                  ${"bg-gray-50"}
                 `}
                 onClick={() => handleSelectQuestao(questao)}
               >

@@ -1,10 +1,18 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const ModalComentario = ({ isOpen, onClose, onSubmit }: any) => {
   const [comentario, setComentario] = useState("");
 
   const handleSubmit = () => {
-    onSubmit(comentario);
+
+    if (!comentario.trim()) {
+      toast.error("Por favor, digite um comentário antes de enviar.");
+    } else {
+      onSubmit(comentario);
+    }
+
+    
     setComentario("");
   };
 
@@ -20,6 +28,7 @@ const ModalComentario = ({ isOpen, onClose, onSubmit }: any) => {
           value={comentario}
           placeholder="Digite aqui seu comentário"
           onChange={(e) => setComentario(e.target.value)}
+          required={true}
         />
         <div className="flex justify-end mt-4">
           <button

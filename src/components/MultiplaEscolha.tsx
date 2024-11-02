@@ -3,7 +3,7 @@ import api from '../api/api';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const MultiplaEscolha = ({ userId, keywords, fk_id_curso }: any) => {
+const MultiplaEscolha = ({ userId, keywords, fk_id_curso, selectedQuestao }: any) => {
   const [enunciado, setEnunciado] = useState('');
   const [fkTipo, setFkTipo] = useState(1);
   const [fkDificuldade, setFkDificuldade] = useState(1);  
@@ -16,6 +16,50 @@ const MultiplaEscolha = ({ userId, keywords, fk_id_curso }: any) => {
   const token = sessionStorage.getItem('@App:token'); 
   const user = JSON.parse(sessionStorage.getItem('@App:user') || '{}');
 
+  console.log(selectedQuestao);
+
+  useEffect(() => {
+    // Reseta todos os campos quando o componente é montado
+    setEnunciado('');
+    setFkTipo(1);
+    setFkDificuldade(1);
+    setFkDisciplina(1);
+    setOptions([]);
+    setInputValue('');
+    setCorrectOption(0);
+  }, []);
+  
+useEffect(() => {
+  if (!selectedQuestao) {
+    // Reseta os campos caso não haja uma questão selecionada
+    setEnunciado('');
+    setFkDisciplina(1);
+    setFkDificuldade(1);
+    setOptions([]);
+    setInputValue('');
+    setCorrectOption(0);
+  } else {
+    // Preenche os campos se houver uma questão selecionada
+    setEnunciado(selectedQuestao.questao || '');
+    setFkDisciplina(selectedQuestao.disciplina || 1);
+    
+    const dificuldadeText = selectedQuestao.dificuldade?.toLowerCase();
+    if (dificuldadeText === 'Fácil') {
+      setFkDificuldade(1);
+    } else if (dificuldadeText === 'Médio') {
+      setFkDificuldade(2);
+    } else if (dificuldadeText === 'Difícil') {
+      setFkDificuldade(3);
+    }
+
+    setOptions(selectedQuestao.respostas || []);
+  }
+}, [selectedQuestao]);
+
+  
+  
+
+  // Função para buscar disciplinas
   useEffect(() => {
     if (user) {
       const fetchDisciplinas = async () => {
@@ -87,66 +131,108 @@ const handleEditOption = (index: any) => {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-
+  
+    // Verificar se o número de alternativas está dentro do limite permitido
     if (options.length < 2 || options.length > 5) {
       toast.error('Você deve fornecer entre 2 e 5 alternativas.');
       return;
     }
+  
+    // Montar os dados para enviar na requisição
+    const formDataCorrigir = {
+      id_questao: selectedQuestao ? selectedQuestao.id_questao : undefined,
+      questao: enunciado,
+      fk_id_disciplina: fkDisciplina,
+      fk_id_dificuldade: fkDificuldade,
+      marcadores: keywords,
+      respostas: options.map((option, index) => ({
+        resposta: selectedQuestao ? selectedQuestao.resposta : option.text,
+        correta: index === correctOption ? "S" : "N"
+      }))
+    };
 
-    const formData = {
+    const formDataCriacao = {
       enunciado,
-      fk_tipo: 2,
+      fk_tipo: 1,
       fk_id_usuario: userId,
       fk_id_dificuldade: fkDificuldade,
       fk_id_disciplina: fkDisciplina,
     };
-
+    console.log(formDataCriacao)
+  
+  
     try {
-      const questaoResponse = await api.post('/questoes', formData, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      if (selectedQuestao) {
+        console.log(formDataCorrigir)
+        // Se houver uma questão selecionada, fazer a alteração (PUT)
+        await api.put(`/questoes/alterar`, {
+          "id_questao": selectedQuestao.id_questao,
+          "questao": enunciado,
+          "fk_id_disciplina": fkDisciplina,
+          "fk_id_dificuldade": fkDificuldade,
+          "marcadores": keywords,
+          "respostas": options.map((option, index) => ({
+            "resposta": selectedQuestao ? selectedQuestao.respostas[index].resposta : option.text,
+            "correta": index === correctOption ? "S" : "N"
+          }))
+        }
+        , {
+          headers: { Authorization: `Bearer ${token}` }
+        });
 
-      const questaoId = questaoResponse.data.id_questao;
-
-      for (let index = 0; index < options.length; index++) {
-        const option = options[index];
-        await api.post(
-          "/questoes/respostas",
-          {
-            descricao: option.text,
-            fg_correta: index === correctOption ? "S" : "N",
-            fk_id_questao: questaoId,
-          },
-          {
-            headers: { Authorization: `Bearer ${token}` }
-          }
+        toast.success('Questão alterada com sucesso!');
+      } else {
+        // Caso contrário, criar uma nova questão (POST)
+        const questaoResponse = await api.post('/questoes', formDataCriacao, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+  
+        const questaoId = questaoResponse.data.id_questao;
+  
+        // Enviar as respostas associadas à nova questão
+        for (let index = 0; index < options.length; index++) {
+          const option = options[index];
+          await api.post(
+            "/questoes/respostas",
+            {
+              descricao: option.text,
+              fg_correta: index === correctOption ? "S" : "N",
+              fk_id_questao: questaoId,
+            },
+            {
+              headers: { Authorization: `Bearer ${token}` }
+            }
+          );
+        }
+  
+        // Enviar os marcadores
+        const marcadores = keywords.map((keyword: string) => ({
+          fk_id_questao: questaoId,
+          marcador: keyword,
+        }));
+  
+        await Promise.all(
+          marcadores.map((marcador: any) =>
+            api.post('/questoes/marcadores', marcador, {
+              headers: { Authorization: `Bearer ${token}` },
+            })
+          )
         );
+  
+        toast.success('Questão cadastrada com sucesso!');
+
       }
-
-      const marcadores = keywords.map((keyword: string) => ({
-        fk_id_questao: questaoId,
-        marcador: keyword,
-      }));
-
-      await Promise.all(
-        marcadores.map((marcador: any) =>
-          api.post('/questoes/marcadores', marcador, {
-            headers: { Authorization: `Bearer ${token}` },
-          })
-        )
-      );
-
-      toast.success('Questão cadastrada com sucesso!');
 
       setTimeout(() => {
         window.location.reload();
       }, 2000);
       
     } catch (error: any) {
-      console.error('Erro ao criar a questão:', error.response || error.message);
-      toast.error('Erro ao criar a questão.');
+      console.error('Erro ao salvar a questão:', error.response || error.message);
+      toast.error('Erro ao salvar a questão.');
     }
   };
+  
 
   return (
     <div>
@@ -258,7 +344,7 @@ const handleEditOption = (index: any) => {
                     correctOption === index ? "text-green-700" : "text-gray-700"
                   }`}
                 >
-                  {option.text}
+                  {selectedQuestao ? option.resposta : option.text}
                 </span>
               )}
             </div>
@@ -289,7 +375,7 @@ const handleEditOption = (index: any) => {
 
       <button
         onClick={handleSubmit}
-        className="mt-4 bg-blue-500 text-white p-2 rounded"
+        className="mt-4 bg-blue-800 text-white px-4 py-2 rounded text-xs "
       >
         Salvar Questão
       </button>

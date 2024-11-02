@@ -1,14 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CampoAberto from "./CampoAberto";
 import MultiplaEscolha from "./MultiplaEscolha";
 import { useAuth } from "../contexts/auth";
+import api from "../api/api";
 
-export default function CabecalhoCriacao({ correcao }: any) {
-  const { token } = useAuth(); 
+export default function CabecalhoCriacao({ correcao, tipo }: any) {
+  const { token } = useAuth();
   const user = JSON.parse(sessionStorage.getItem('@App:user') || '{}');
   const [keywords, setKeywords] = useState<any>([]);
   const [inputValue, setInputValue] = useState<any>("");
-  const [tipoQuestao, setTipoQuestao] = useState<any>("");
+  const [tipoQuestao, setTipoQuestao] = useState<any>(tipo === 2 ? "DISS" : "ME"); // Define tipo inicial
+  const [selectedQuestao, setSelectedQuestao] = useState<any>(null);
+
+  useEffect(() => {
+    if (correcao) {
+      const fetchQuestaoDetalhes = async (correcao: any) => {
+        try {
+          const response = await api.get(`/questoes/detalhes/${correcao}`);
+          setSelectedQuestao(response.data);
+
+          // Define o tipo de questão com base nos dados carregados
+          if (response.data.tipo === 2) {
+            setTipoQuestao("DISS");
+          } else {
+            setTipoQuestao("ME");
+          }
+        } catch (error) {
+          console.error("Erro ao buscar detalhes da questão:", error);
+        }
+      };
+      fetchQuestaoDetalhes(correcao);
+    }
+  }, [correcao]);
 
   const handleInputChange = (event: any) => {
     setInputValue(event.target.value);
@@ -33,20 +56,16 @@ export default function CabecalhoCriacao({ correcao }: any) {
 
   return (
     <div className="w-full">
-      {correcao ? (
-        <h3 className="flex items-center mb-3 text- font-semibold text-gray-900">
-          Editar questão
-        </h3>
-      ) : (
-        <h3 className="flex items-center mb-3 text- font-semibold text-gray-900">
-          Criar questão
-        </h3>
-      )}
+      <h3 className="flex items-center mb-3 font-semibold text-gray-900">
+        {correcao ? "Editar questão" : "Criar questão"}
+      </h3>
 
       <div className="bg-white border border-gray-200 rounded-lg p-8 md:p-8 mb-4">
         <form className="flex-column">
           <div className="flex justify-between gap-10">
+          { (!correcao) &&
             <div className="flex-column w-full">
+            
               <label className="block mb-2 text-sm font-medium text-gray-900">
                 Tipo de questão
               </label>
@@ -59,8 +78,7 @@ export default function CabecalhoCriacao({ correcao }: any) {
                 <option value="DISS">Dissertativa</option>
               </select>
             </div>
-            <div className="flex-column w-full">
-            </div>
+          }
           </div>
 
           <div className="mt-4">
@@ -96,20 +114,22 @@ export default function CabecalhoCriacao({ correcao }: any) {
               ))}
             </div>
           </div>
-          
           {tipoQuestao === "DISS" ? (
             <CampoAberto 
               token={token} 
               userId={user?.id_usuario} 
               keywords={keywords}
               fk_id_curso={user?.fk_id_curso.id_curso}
+              questao={selectedQuestao?.questao}
+              comentario={selectedQuestao?.comentario}
+              selectedQuestao={selectedQuestao}
             />
           ) : (
             <MultiplaEscolha 
-              token={token} 
               userId={user?.id_usuario} 
               keywords={keywords}
               fk_id_curso={user?.fk_id_curso.id_curso}
+              selectedQuestao={selectedQuestao}
             />
           )}
         </form>
