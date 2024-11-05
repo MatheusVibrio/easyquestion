@@ -55,7 +55,7 @@ export default function CabecalhoCriacao({ correcao, tipo }: any) {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full h-screen bg-gray-100"> 
       <h3 className="flex items-center mb-3 font-semibold text-gray-900">
         {correcao ? "Editar questão" : "Criar questão"}
       </h3>

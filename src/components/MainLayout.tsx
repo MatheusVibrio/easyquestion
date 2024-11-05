@@ -25,7 +25,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const loading = localSupervisor === null;
 
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-100 h-screen">
       {loading ? (
         <div className="absolute inset-0 flex items-center justify-center bg-white z-50">
           <ClipLoader color="#36d7b7" loading={loading} size={50} />
